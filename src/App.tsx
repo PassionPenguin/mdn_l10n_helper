@@ -53,8 +53,8 @@ function App() {
             <div
                 className={"fixed bottom-24 right-4 w-30 p-4 rounded bg-amber-100 dark:bg-amber-800 font-bold text-black dark:text-white " + (showMenu ? "flex" : "hidden")}>
                 <ul className="space-y-2">
-                    <li><a href="/#preferences">Preferences</a></li>
-                    <li><a href="/#compare">Compare</a></li>
+                    <li><a href="/mdn_l10n_helper/#preferences">Preferences</a></li>
+                    <li><a href="/mdn_l10n_helper/#compare">Compare</a></li>
                 </ul>
             </div>
         </>
