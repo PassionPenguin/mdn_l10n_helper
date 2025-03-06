@@ -1,5 +1,6 @@
 {
   "name": "mdn_l10n_helper",
+  "homepage": "https://passionpenguin.github.io/mdn_l10n_helper/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
