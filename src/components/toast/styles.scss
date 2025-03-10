@@ -1,5 +1,5 @@
 .toast {
-  @apply fixed z-40 top-4 left-1/2 -translate-x-1/2 flex px-3 pt-1.5 pb-1.5 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-lg font-bold text-lg;
+  @apply fixed z-40 top-4 left-1/2 -translate-x-1/2 flex px-3 pt-1.5 pb-1.5 rounded-xl bg-gray-200 dark:bg-gray-800 shadow-lg font-bold;
 
   &.toast-error {
     @apply bg-red-50 dark:bg-red-950;

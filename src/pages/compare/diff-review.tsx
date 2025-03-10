@@ -28,7 +28,7 @@ export default function CompareContent({l10nedEntry, sourceEntry, locale}: {
             </section>
             <section>
                 {Array.from({length: maxLength}).map((_, i) => (
-                    <div className="flex px-4 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 break-all">
+                    <div className="flex px-4 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 break-all whitespace-pre font-mono">
                         <div className="w-1/2 mr-4">
                             {l10nedLines[i] || <>&nbsp;</>}
                         </div>
