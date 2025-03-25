@@ -1,4 +1,4 @@
-import React, {createContext, useState, useEffect, ReactNode} from 'react';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
 
 // Define the type for your preferences
 interface Preferences {
@@ -20,7 +20,7 @@ const defaultPreferences: Preferences = {
 };
 
 // Provider component
-export const PreferencesProvider = ({children}: { children: ReactNode }) => {
+export const PreferencesProvider = ({ children }: { children: ReactNode }) => {
     const [preferences, setPreferences] = useState<Preferences>(defaultPreferences);
 
     // Load preferences from local storage when the component mounts
@@ -33,15 +33,13 @@ export const PreferencesProvider = ({children}: { children: ReactNode }) => {
 
     // Update preferences and save them to local storage
     const updatePreferences = (newPreferences: Partial<Preferences>) => {
-        const updatedPreferences = {...preferences, ...newPreferences};
+        const updatedPreferences = { ...preferences, ...newPreferences };
         setPreferences(updatedPreferences);
         localStorage.setItem('user-preferences', JSON.stringify(updatedPreferences));
     };
 
     return (
-        <PreferencesContext.Provider value={{preferences, updatePreferences}}>
-            {children}
-        </PreferencesContext.Provider>
+        <PreferencesContext.Provider value={{ preferences, updatePreferences }}>{children}</PreferencesContext.Provider>
     );
 };
 

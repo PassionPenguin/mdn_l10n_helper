@@ -3,53 +3,48 @@
   "homepage": "https://passionpenguin.github.io/mdn_l10n_helper/",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@octokit/core": "^6.1.4",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.126",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "highlight.js": "^11.10.0",
+    "@tailwindcss/vite": "^4.0.14",
+    "@types/react-highlight": "^0.12.8",
+    "eslint-plugin-react-dom": "^1.34.1",
+    "eslint-plugin-react-x": "^1.34.1",
+    "highlight.js": "^11.11.1",
     "js-yaml": "^4.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.2.0",
-    "react-scripts": "5.0.1",
-    "sass": "^1.77.8",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "react-markdown": "^10.1.0",
+    "react-router": "^7.3.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-mathjax": "^7.1.0",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "sass": "^1.86.0",
+    "tailwindcss": "^4.0.14"
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
+    "@eslint/js": "^9.21.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/react-highlight": "^0.12.8",
-    "postcss-import": "^16.1.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.9",
-    "sass-loader": "^16.0.1",
-    "tailwindcss": "^3.4.10"
-  },
-  "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "eject": "craco eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "prettier": "3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0"
   }
 }
