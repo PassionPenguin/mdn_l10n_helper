@@ -13,8 +13,8 @@ export default function CompareContent({
         return <div>Entries are not available for comparison.</div>;
     }
 
-    const l10nedLines = l10nedEntry.content.split('\n');
-    const sourceLines = sourceEntry.content.split('\n');
+    const l10nedLines = l10nedEntry.content.split('\n\n');
+    const sourceLines = sourceEntry.content.split('\n\n');
     const maxLength = Math.max(l10nedLines.length, sourceLines.length);
 
     return (
