@@ -17,8 +17,7 @@ export default function CompareContent({
         return <div>Entries are not available for comparison.</div>;
     }
 
-    let splitter: string = '\n\n';
-    if (splitMethod === 'single') splitter = '\n';
+    let splitter: string = splitMethod === 'single' ? '\n' :'\n\n';
 
     const l10nedLines = l10nedEntry.content.split(splitter);
     const sourceLines = sourceEntry.content.split(splitter);
