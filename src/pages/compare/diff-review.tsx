@@ -1,20 +1,26 @@
 import Entry from '@models/entry';
 
+interface DiffReviewProps {
+    l10nedEntry: Entry | null | undefined;
+    sourceEntry: Entry | null | undefined;
+    locale: string;
+    splitMethod: 'double' | 'single';
+}
+
 export default function CompareContent({
     l10nedEntry,
     sourceEntry,
     locale,
-}: {
-    l10nedEntry: Entry | null | undefined;
-    sourceEntry: Entry | null | undefined;
-    locale: string;
-}) {
+    splitMethod,
+}: DiffReviewProps) {
     if (!l10nedEntry || !sourceEntry) {
         return <div>Entries are not available for comparison.</div>;
     }
 
-    const l10nedLines = l10nedEntry.content.split('\n');
-    const sourceLines = sourceEntry.content.split('\n');
+    let splitter: string = splitMethod === 'single' ? '\n' :'\n\n';
+
+    const l10nedLines = l10nedEntry.content.split(splitter);
+    const sourceLines = sourceEntry.content.split(splitter);
     const maxLength = Math.max(l10nedLines.length, sourceLines.length);
 
     return (
@@ -32,12 +38,15 @@ export default function CompareContent({
                 </div>
             </section>
             <section>
-                {Array.from({ length: maxLength }).map((_, i) => (
-                    <div className="flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700">
+                {Array.from({ length: maxLength }).flatMap((_, i) => [
+                    <div key={i} className="flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700">
                         <div className="mr-4 w-1/2">{l10nedLines[i] || <>&nbsp;</>}</div>
                         <div className="w-1/2">{sourceLines[i] || <>&nbsp;</>}</div>
-                    </div>
-                ))}
+                    </div>,
+                    splitMethod === 'double' && i < maxLength - 1 ? (
+                        <div key={`spacer-${i}`} className="h-4" />
+                    ) : null
+                ])}
             </section>
         </>
     );

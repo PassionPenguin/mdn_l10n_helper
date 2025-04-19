@@ -19,7 +19,8 @@ export default function ComparePage() {
         [l10nBranch, setL10nBranch] = useState<string | undefined>(branch ?? undefined),
         [l10nedEntry, setL10nedEntry] = useState<Entry | null | undefined>(),
         [sourceEntry, setSourceEntry] = useState<Entry | null | undefined>(),
-        [loading, setLoading] = useState(false);
+        [loading, setLoading] = useState(false),
+        [splitMethod, setSplitMethod] = useState<'double' | 'single'>('double');
 
     const { setMessage } = useContext(BannerContext);
     const { preferences } = usePreferences();
@@ -168,10 +169,23 @@ export default function ComparePage() {
                     Read Changes <br />
                     <small>from localStorage</small>
                 </button>
+                <select
+                    id="split-method-select"
+                    className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                    value={splitMethod}
+                    onChange={e => setSplitMethod(e.target.value as 'double' | 'single')}
+                >
+                    <option value="double">
+                        Split Method: Double(\n\n)
+                    </option>
+                    <option value="single">
+                        Split Method: Single(\n)
+                    </option>
+                </select>
             </div>
 
             {l10nedEntry && sourceEntry && locale && (
-                <DiffReview l10nedEntry={l10nedEntry} sourceEntry={sourceEntry} locale={locale} />
+                <DiffReview l10nedEntry={l10nedEntry} sourceEntry={sourceEntry} locale={locale} splitMethod={splitMethod} />
             )}
 
             {loading && <Spinner />}
