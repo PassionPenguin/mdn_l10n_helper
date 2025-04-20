@@ -173,19 +173,22 @@ export default function ComparePage() {
                     id="split-method-select"
                     className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
                     value={splitMethod}
-                    onChange={e => setSplitMethod(e.target.value as 'double' | 'single')}
+                    onChange={(e) => setSplitMethod(e.target.value as 'double' | 'single')}
                 >
-                    <option value="double">
-                        Split Method: Double(\n\n)
-                    </option>
-                    <option value="single">
-                        Split Method: Single(\n)
-                    </option>
+                    <option value="double">Split Method: Double(\n\n)</option>
+                    <option value="single">Split Method: Single(\n)</option>
                 </select>
             </div>
 
             {l10nedEntry && sourceEntry && locale && (
-                <DiffReview l10nedEntry={l10nedEntry} sourceEntry={sourceEntry} locale={locale} splitMethod={splitMethod} />
+                <DiffReview
+                    key={splitMethod}
+                    l10nedEntry={l10nedEntry}
+                    sourceEntry={sourceEntry}
+                    locale={locale}
+                    splitMethod={splitMethod}
+                    path={path}
+                />
             )}
 
             {loading && <Spinner />}

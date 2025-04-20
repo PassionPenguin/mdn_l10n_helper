@@ -5,19 +5,15 @@ interface DiffReviewProps {
     sourceEntry: Entry | null | undefined;
     locale: string;
     splitMethod: 'double' | 'single';
+    path: string | null;
 }
 
-export default function CompareContent({
-    l10nedEntry,
-    sourceEntry,
-    locale,
-    splitMethod,
-}: DiffReviewProps) {
+export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path }: DiffReviewProps) {
     if (!l10nedEntry || !sourceEntry) {
         return <div>Entries are not available for comparison.</div>;
     }
 
-    let splitter: string = splitMethod === 'single' ? '\n' :'\n\n';
+    let splitter: string = splitMethod === 'single' ? '\n' : '\n\n';
 
     const l10nedLines = l10nedEntry.content.split(splitter);
     const sourceLines = sourceEntry.content.split(splitter);
@@ -34,18 +30,19 @@ export default function CompareContent({
                 </div>
                 <div className="w-1/2">
                     <h2 className="text-2xl font-bold">Source</h2>
-                    <SourceEntryProperties entry={sourceEntry} />
+                    <SourceEntryProperties entry={sourceEntry} path={path} />
                 </div>
             </section>
             <section>
                 {Array.from({ length: maxLength }).flatMap((_, i) => [
-                    <div key={i} className="flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <div
+                        key={i}
+                        className="flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700"
+                    >
                         <div className="mr-4 w-1/2">{l10nedLines[i] || <>&nbsp;</>}</div>
                         <div className="w-1/2">{sourceLines[i] || <>&nbsp;</>}</div>
                     </div>,
-                    splitMethod === 'double' && i < maxLength - 1 ? (
-                        <div key={`spacer-${i}`} className="h-4" />
-                    ) : null
+                    splitMethod === 'double' && i < maxLength - 1 ? <div key={`spacer-${i}`} className="h-4" /> : null,
                 ])}
             </section>
         </>
@@ -71,13 +68,14 @@ function L10nedEntryProperties({ entry }: { entry: Entry | null | undefined }) {
                     <li>
                         <b>Source Commit</b>: <code>{entry?.sourceCommit}</code>
                     </li>
+                    <li />
                 </ul>
             </div>
         );
     }
 }
 
-function SourceEntryProperties({ entry }: { entry: Entry | null | undefined }) {
+function SourceEntryProperties({ entry, path }: { entry: Entry | null | undefined; path: string | null }) {
     if (entry === undefined) {
         return null;
     } else if (entry === null) {
@@ -95,6 +93,12 @@ function SourceEntryProperties({ entry }: { entry: Entry | null | undefined }) {
                     </li>
                     <li>
                         <b>Current Commit</b>: <code>{entry?.sourceCommit}</code>
+                    </li>
+                    <li>
+                        <b>Link to File</b>:
+                        <a href={`https://github.com/PassionPenguin/content/blob/main/files/en-us/${path}/index.md`}>
+                            Click HERE!
+                        </a>
                     </li>
                 </ul>
             </div>
