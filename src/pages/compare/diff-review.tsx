@@ -96,7 +96,7 @@ function SourceEntryProperties({ entry, path }: { entry: Entry | null | undefine
                     </li>
                     <li>
                         <b>Link to File</b>:
-                        <a href={`https://github.com/PassionPenguin/content/blob/main/files/en-us/${path}/index.md`}>
+                        <a href={`https://github.com/mdn/content/blob/main/files/en-us/${path}/index.md`}>
                             Click HERE!
                         </a>
                     </li>
