@@ -6,17 +6,31 @@ interface DiffReviewProps {
     locale: string;
     splitMethod: 'double' | 'single';
     path: string | null;
+    enableMarkdownProcessing: boolean;
 }
 
-export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path }: DiffReviewProps) {
+export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path, enableMarkdownProcessing }: DiffReviewProps) {
     if (!l10nedEntry || !sourceEntry) {
         return <div>Entries are not available for comparison.</div>;
     }
 
     let splitter: string = splitMethod === 'single' ? '\n' : '\n\n';
 
-    const l10nedLines = l10nedEntry.content.split(splitter);
-    const sourceLines = sourceEntry.content.split(splitter);
+    const processMarkdownList = (content: string) => {
+        if (!enableMarkdownProcessing) {
+            return content.split(splitter);
+        }
+        return content
+            .split(splitter)
+            .flatMap((block) => {
+                return block
+                    .split(/\n(?=\s*- )/)
+                    .map((line) => line);
+            });
+    };
+
+    const l10nedLines = processMarkdownList(l10nedEntry.content);
+    const sourceLines = processMarkdownList(sourceEntry.content);
     const maxLength = Math.max(l10nedLines.length, sourceLines.length);
 
     return (
@@ -34,16 +48,25 @@ export default function CompareContent({ l10nedEntry, sourceEntry, locale, split
                 </div>
             </section>
             <section>
-                {Array.from({ length: maxLength }).flatMap((_, i) => [
-                    <div
-                        key={i}
-                        className="flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700"
-                    >
-                        <div className="mr-4 w-1/2">{l10nedLines[i] || <>&nbsp;</>}</div>
-                        <div className="w-1/2">{sourceLines[i] || <>&nbsp;</>}</div>
-                    </div>,
-                    splitMethod === 'double' && i < maxLength - 1 ? <div key={`spacer-${i}`} className="h-4" /> : null,
-                ])}
+                {Array.from({ length: maxLength }).flatMap((_, i) => {
+                    const isMarkdownListItem = (line: string) => line.trim().startsWith('- ');
+
+                    const currentIsMarkdown = isMarkdownListItem(l10nedLines[i] || '') || isMarkdownListItem(sourceLines[i] || '');
+                    const nextIsMarkdown = i + 1 < maxLength && (isMarkdownListItem(l10nedLines[i + 1] || '') || isMarkdownListItem(sourceLines[i + 1] || ''));
+
+                    return [
+                        <div
+                            key={i}
+                            className={`flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700`}
+                        >
+                            <div className="mr-4 w-1/2">{l10nedLines[i] || <>&nbsp;</>}</div>
+                            <div className="w-1/2">{sourceLines[i] || <>&nbsp;</>}</div>
+                        </div>,
+                        splitMethod === 'double' && i < maxLength - 1 && (!currentIsMarkdown || !nextIsMarkdown)
+                            ? <div key={`spacer-${i}`} className="h-4" />
+                            : null,
+                    ];
+                })}
             </section>
         </>
     );

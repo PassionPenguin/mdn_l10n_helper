@@ -20,7 +20,8 @@ export default function ComparePage() {
         [l10nedEntry, setL10nedEntry] = useState<Entry | null | undefined>(),
         [sourceEntry, setSourceEntry] = useState<Entry | null | undefined>(),
         [loading, setLoading] = useState(false),
-        [splitMethod, setSplitMethod] = useState<'double' | 'single'>('double');
+        [splitMethod, setSplitMethod] = useState<'double' | 'single'>('double'),
+        [enableMarkdownProcessing, setEnableMarkdownProcessing] = useState(true);
 
     const { setMessage } = useContext(BannerContext);
     const { preferences } = usePreferences();
@@ -178,6 +179,17 @@ export default function ComparePage() {
                     <option value="double">Split Method: Double(\n\n)</option>
                     <option value="single">Split Method: Single(\n)</option>
                 </select>
+                {splitMethod === 'double' && (
+                    <label className="flex items-center space-x-2 rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900">
+                        <input
+                            type="checkbox"
+                            checked={enableMarkdownProcessing}
+                            onChange={(e) => setEnableMarkdownProcessing(e.target.checked)}
+                            className="mr-2"
+                        />
+                        <span>Split MD List</span>
+                    </label>
+                )}
             </div>
 
             {l10nedEntry && sourceEntry && locale && (
@@ -188,6 +200,7 @@ export default function ComparePage() {
                     locale={locale}
                     splitMethod={splitMethod}
                     path={path}
+                    enableMarkdownProcessing={enableMarkdownProcessing}
                 />
             )}
 
