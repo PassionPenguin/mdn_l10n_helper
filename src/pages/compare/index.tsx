@@ -282,8 +282,7 @@ export default function ComparePage() {
                     splitMethod={splitMethod}
                     path={path}
                     enableMarkdownProcessing={enableMarkdownProcessing}
-                    enableMarkdownBQProcessing={enableMarkdownBQProcessing}
-                />
+                    enableMarkdownBQProcessing={enableMarkdownBQProcessing}                />
             )}
 
             {loading && <Spinner />}
