@@ -20,7 +20,40 @@ export default function ComparePage() {
         [l10nedEntry, setL10nedEntry] = useState<Entry | null | undefined>(),
         [sourceEntry, setSourceEntry] = useState<Entry | null | undefined>(),
         [loading, setLoading] = useState(false),
-        [splitMethod, setSplitMethod] = useState<'double' | 'single'>('double');
+        [splitMethod, setSplitMethod] = useState<'double' | 'single'>(
+            localStorage.getItem('splitMode') !== null
+                ? (localStorage.getItem('splitMode') === 'true' ? 'double' : 'single')
+                : 'double'
+        ),
+        [enableMarkdownProcessing, setEnableMarkdownProcessing] = useState(
+            localStorage.getItem('mdListProcessOption') !== null
+                ? localStorage.getItem('mdListProcessOption') === 'true'
+                : true
+        ),
+        [settingsVisible, setSettingsVisible] = useState(false),
+        [enableMarkdownBQProcessing, setEnableMarkdownBQProcessing] = useState(
+            localStorage.getItem('mdBQProcessOption') !== null
+                ? localStorage.getItem('mdBQProcessOption') === 'true'
+                : true
+        );
+
+    const [tempSplitMethod, setTempSplitMethod] = useState<'double' | 'single'>(splitMethod);
+    const [tempEnableMarkdownProcessing, setTempEnableMarkdownProcessing] = useState(enableMarkdownProcessing);
+    const [tempEnableMarkdownBQProcessing, setTempEnableMarkdownBQProcessing] = useState(enableMarkdownBQProcessing);
+
+    const openSettings = () => {
+        setTempSplitMethod(splitMethod);
+        setTempEnableMarkdownProcessing(enableMarkdownProcessing);
+        setTempEnableMarkdownBQProcessing(enableMarkdownBQProcessing);
+        setSettingsVisible(true);
+    };
+
+    const cancelSettings = () => {
+        setTempSplitMethod(splitMethod);
+        setTempEnableMarkdownProcessing(enableMarkdownProcessing);
+        setTempEnableMarkdownBQProcessing(enableMarkdownBQProcessing);
+        setSettingsVisible(false);
+    };
 
     const { setMessage } = useContext(BannerContext);
     const { preferences } = usePreferences();
@@ -169,16 +202,76 @@ export default function ComparePage() {
                     Read Changes <br />
                     <small>from localStorage</small>
                 </button>
-                <select
-                    id="split-method-select"
+                <button
                     className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
-                    value={splitMethod}
-                    onChange={(e) => setSplitMethod(e.target.value as 'double' | 'single')}
+                    onClick={openSettings}
                 >
-                    <option value="double">Split Method: Double(\n\n)</option>
-                    <option value="single">Split Method: Single(\n)</option>
-                </select>
+                    Settings
+                </button>
             </div>
+
+            {settingsVisible && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="relative w-96 rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                        <h2 className="mb-4 text-2xl font-bold">Settings</h2>
+                        <div className="mb-4">
+                            <label className="block font-medium text-gray-700 dark:text-gray-200">
+                                Split Method
+                            </label>
+                            <select
+                                id="split-method-select"
+                                className="w-full rounded border-2 border-amber-400 bg-white text-black px-4 py-1.5 dark:bg-gray-700 dark:text-white"
+                                value={tempSplitMethod}
+                                onChange={(e) => setTempSplitMethod(e.target.value as 'double' | 'single')}
+                            >
+                                <option value="double">Double (\n\n)</option>
+                                <option value="single">Single (\n)</option>
+                            </select>
+                        </div>
+                        <div className="mb-4">
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={tempEnableMarkdownProcessing}
+                                    onChange={(e) => setTempEnableMarkdownProcessing(e.target.checked)}
+                                    className="mr-2"
+                                />
+                                <span>Enable Markdown List Processing</span>
+                            </label>
+                        </div>
+                        <div className="mb-4">
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={tempEnableMarkdownBQProcessing}
+                                    onChange={(e) => setTempEnableMarkdownBQProcessing(e.target.checked)}
+                                    className="mr-2"
+                                />
+                                <span>Enable Markdown Blockquotes Processing</span>
+                            </label>
+                        </div>
+                        <div className="flex justify-end space-x-2">
+                            <button
+                                className="rounded border-2 border-gray-400 bg-transparent px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                onClick={cancelSettings}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                                onClick={() => {
+                                    setSplitMethod(tempSplitMethod);
+                                    setEnableMarkdownProcessing(tempEnableMarkdownProcessing);
+                                    setSettingsVisible(false);
+                                    setEnableMarkdownBQProcessing(tempEnableMarkdownBQProcessing);
+                                }}
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {l10nedEntry && sourceEntry && locale && (
                 <DiffReview
@@ -188,6 +281,8 @@ export default function ComparePage() {
                     locale={locale}
                     splitMethod={splitMethod}
                     path={path}
+                    enableMarkdownProcessing={enableMarkdownProcessing}
+                    enableMarkdownBQProcessing={enableMarkdownBQProcessing}
                 />
             )}
 
