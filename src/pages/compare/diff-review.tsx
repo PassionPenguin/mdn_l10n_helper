@@ -7,7 +7,7 @@ interface DiffReviewProps {
     splitMethod: 'double' | 'single';
     path: string | null;
     enableMarkdownProcessing: boolean;
-    enableMarkdownBQProcessing: boolean; // 新增設定
+    enableMarkdownBQProcessing: boolean;
 }
 
 export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path, enableMarkdownProcessing, enableMarkdownBQProcessing }: DiffReviewProps) {
