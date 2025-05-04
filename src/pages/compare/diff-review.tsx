@@ -7,9 +7,10 @@ interface DiffReviewProps {
     splitMethod: 'double' | 'single';
     path: string | null;
     enableMarkdownProcessing: boolean;
+    enableMarkdownBQProcessing: boolean;
 }
 
-export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path, enableMarkdownProcessing }: DiffReviewProps) {
+export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path, enableMarkdownProcessing, enableMarkdownBQProcessing }: DiffReviewProps) {
     if (!l10nedEntry || !sourceEntry) {
         return <div>Entries are not available for comparison.</div>;
     }
@@ -23,6 +24,11 @@ export default function CompareContent({ l10nedEntry, sourceEntry, locale, split
         return content
             .split(splitter)
             .flatMap((block) => {
+                if (enableMarkdownBQProcessing && block.replace(/^\s+/, '').startsWith('>')) {
+                    return block
+                        .split(/\n\s*>\s*\n/)
+                        .flatMap((item, index, arr) => index < arr.length - 1 ? [item, '>'] : [item]);
+                }
                 return block
                     .split(/\n(?=\s*- )/)
                     .map((line) => line);
@@ -50,9 +56,20 @@ export default function CompareContent({ l10nedEntry, sourceEntry, locale, split
             <section>
                 {Array.from({ length: maxLength }).flatMap((_, i) => {
                     const isMarkdownListItem = (line: string) => line.trim().startsWith('- ');
+                    const isMarkdownBlockquote = (line: string) => line.trim().startsWith('>');
 
-                    const currentIsMarkdown = isMarkdownListItem(l10nedLines[i] || '') || isMarkdownListItem(sourceLines[i] || '');
-                    const nextIsMarkdown = i + 1 < maxLength && (isMarkdownListItem(l10nedLines[i + 1] || '') || isMarkdownListItem(sourceLines[i + 1] || ''));
+                    const currentIsMarkdown =
+                        isMarkdownListItem(l10nedLines[i] || '') ||
+                        isMarkdownListItem(sourceLines[i] || '') ||
+                        isMarkdownBlockquote(l10nedLines[i] || '') ||
+                        isMarkdownBlockquote(sourceLines[i] || '');
+
+                    const nextIsMarkdown =
+                        i + 1 < maxLength &&
+                        (isMarkdownListItem(l10nedLines[i + 1] || '') ||
+                            isMarkdownListItem(sourceLines[i + 1] || '') ||
+                            isMarkdownBlockquote(l10nedLines[i + 1] || '') ||
+                            isMarkdownBlockquote(sourceLines[i + 1] || ''));
 
                     return [
                         <div

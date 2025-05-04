@@ -30,20 +30,28 @@ export default function ComparePage() {
                 ? localStorage.getItem('mdListProcessOption') === 'true'
                 : true
         ),
-        [settingsVisible, setSettingsVisible] = useState(false);
+        [settingsVisible, setSettingsVisible] = useState(false),
+        [enableMarkdownBQProcessing, setEnableMarkdownBQProcessing] = useState(
+            localStorage.getItem('mdBQProcessOption') !== null
+                ? localStorage.getItem('mdBQProcessOption') === 'true'
+                : true
+        );
 
-    const [tempSplitMethod, setTempSplitMethod] = useState(splitMethod);
+    const [tempSplitMethod, setTempSplitMethod] = useState<'double' | 'single'>(splitMethod);
     const [tempEnableMarkdownProcessing, setTempEnableMarkdownProcessing] = useState(enableMarkdownProcessing);
+    const [tempEnableMarkdownBQProcessing, setTempEnableMarkdownBQProcessing] = useState(enableMarkdownBQProcessing);
 
     const openSettings = () => {
         setTempSplitMethod(splitMethod);
         setTempEnableMarkdownProcessing(enableMarkdownProcessing);
+        setTempEnableMarkdownBQProcessing(enableMarkdownBQProcessing);
         setSettingsVisible(true);
     };
 
     const cancelSettings = () => {
         setTempSplitMethod(splitMethod);
         setTempEnableMarkdownProcessing(enableMarkdownProcessing);
+        setTempEnableMarkdownBQProcessing(enableMarkdownBQProcessing);
         setSettingsVisible(false);
     };
 
@@ -231,6 +239,17 @@ export default function ComparePage() {
                                 <span>Enable Markdown List Processing</span>
                             </label>
                         </div>
+                        <div className="mb-4">
+                            <label className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    checked={tempEnableMarkdownBQProcessing}
+                                    onChange={(e) => setTempEnableMarkdownBQProcessing(e.target.checked)}
+                                    className="mr-2"
+                                />
+                                <span>Enable Markdown Blockquotes Processing</span>
+                            </label>
+                        </div>
                         <div className="flex justify-end space-x-2">
                             <button
                                 className="rounded border-2 border-gray-400 bg-transparent px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -244,6 +263,7 @@ export default function ComparePage() {
                                     setSplitMethod(tempSplitMethod);
                                     setEnableMarkdownProcessing(tempEnableMarkdownProcessing);
                                     setSettingsVisible(false);
+                                    setEnableMarkdownBQProcessing(tempEnableMarkdownBQProcessing);
                                 }}
                             >
                                 Save
@@ -262,7 +282,7 @@ export default function ComparePage() {
                     splitMethod={splitMethod}
                     path={path}
                     enableMarkdownProcessing={enableMarkdownProcessing}
-                />
+                    enableMarkdownBQProcessing={enableMarkdownBQProcessing}                />
             )}
 
             {loading && <Spinner />}
