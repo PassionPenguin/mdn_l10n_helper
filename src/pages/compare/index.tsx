@@ -1,3 +1,13 @@
+/*
+ *
+ *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+ *  *
+ *  * Open sourced under GNU General Public License 3.0.
+ *  *
+ *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *
+ */
+
 import { useContext, useState } from 'react';
 import Entry from '@models/entry';
 import DiffReview from './diff-review';
@@ -5,6 +15,8 @@ import { BannerContext } from '@/App';
 import Spinner from '@components/spinner/spinner';
 import { usePreferences } from '@utils/preferences-context';
 import { useSearchParams } from 'react-router';
+import GoodInput from '@components/form/input.tsx';
+import I18N from '@utils/i18n.base';
 
 export default function ComparePage() {
     const [searchParams] = useSearchParams();
@@ -22,7 +34,9 @@ export default function ComparePage() {
         [loading, setLoading] = useState(false),
         [splitMethod, setSplitMethod] = useState<'double' | 'single'>(
             localStorage.getItem('splitMode') !== null
-                ? (localStorage.getItem('splitMode') === 'true' ? 'double' : 'single')
+                ? localStorage.getItem('splitMode') === 'true'
+                    ? 'double'
+                    : 'single'
                 : 'double'
         ),
         [enableMarkdownProcessing, setEnableMarkdownProcessing] = useState(
@@ -61,7 +75,7 @@ export default function ComparePage() {
     const fetchEntries = async () => {
         setLoading(true);
         if (!filePath || !fileLocale || !l10nBranch || !l10nOwner) {
-            setMessage({ message: 'Path and locale are required', type: 'error' });
+            setMessage({ message: I18N.msgPathLocaleRequired, type: 'error' });
             return;
         }
         try {
@@ -78,7 +92,7 @@ export default function ComparePage() {
             setSourceEntry(
                 await Entry.fromGitHub('mdn', 'content', 'main', filePath, 'en-us', preferences.accessToken)
             );
-            setMessage({ message: 'Entries fetched successfully', type: 'success' });
+            setMessage({ message: I18N.msgEntriesFetched, type: 'success' });
         } catch (e: any) {
             setMessage({ message: e.message, type: 'error' });
         }
@@ -87,7 +101,7 @@ export default function ComparePage() {
 
     const saveEntries = () => {
             if (!l10nedEntry || !sourceEntry) {
-                setMessage({ message: 'No entries to save', type: 'info' });
+                setMessage({ message: I18N.msgNoEntriesToSave, type: 'info' });
                 return;
             }
             try {
@@ -98,7 +112,7 @@ export default function ComparePage() {
                         source: sourceEntry,
                     })
                 );
-                setMessage({ message: 'Entries saved to localStorage', type: 'success' });
+                setMessage({ message: I18N.msgEntriesSavedToLocalStorage, type: 'success' });
             } catch (e: any) {
                 setMessage({ message: e.message, type: 'error' });
                 return;
@@ -107,14 +121,14 @@ export default function ComparePage() {
         readEntries = () => {
             const data = localStorage.getItem('e_' + path);
             if (!data) {
-                setMessage({ message: 'No entries with the given path found in localStorage', type: 'error' });
+                setMessage({ message: I18N.msgNoEntriesFoundInLocalStorage, type: 'error' });
                 return;
             }
             try {
                 const parsed = JSON.parse(data);
                 setL10nedEntry(parsed.l10ned);
                 setSourceEntry(parsed.source);
-                setMessage({ message: 'Entries read from localStorage', type: 'success' });
+                setMessage({ message: I18N.msgEntriesReadFromLocalStorage, type: 'success' });
             } catch (e: any) {
                 setMessage({ message: e.message, type: 'error' });
             }
@@ -122,110 +136,88 @@ export default function ComparePage() {
 
     return (
         <main className="container mx-auto mt-4">
-            <h1 className="mb-8 text-4xl font-bold">Compare</h1>
+            <h1 className="mb-8 text-4xl font-bold">{I18N.compare}</h1>
             <div className="my-4 flex space-x-1">
                 <div>
                     <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
-                        Owner{' '}
+                        {I18N.ownerLabel}{' '}
                         <small>
-                            e.g. <code>mdn</code>
+                            {I18N.eg}. <code>mdn</code>
                         </small>
                     </div>
-                    <input
-                        className="w-full rounded border-2 border-amber-400 bg-transparent px-4 py-1.5"
-                        type="text"
-                        value={l10nOwner}
-                        onChange={(e) => setL10nOwner(e.target.value)}
-                    />
+                    <GoodInput name="owner" type="text" value={l10nOwner} onChange={(v) => setL10nOwner(v)} />
                 </div>
                 <div>
                     <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
-                        Branch{' '}
+                        {I18N.branchLabel}{' '}
                         <small>
-                            e.g. <code>main</code>
+                            {I18N.eg}. <code>main</code>
                         </small>
                     </div>
-                    <input
-                        className="w-full rounded border-2 border-amber-400 bg-transparent px-4 py-1.5"
-                        type="text"
-                        value={l10nBranch}
-                        onChange={(e) => setL10nBranch(e.target.value)}
-                    />
+                    <GoodInput name="branch" type="text" value={l10nBranch} onChange={(v) => setL10nBranch(v)} />
                 </div>
                 <div className="flex-1">
                     <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
-                        Path{' '}
+                        {I18N.pathLabel}{' '}
                         <small>
-                            e.g. <code>mozilla/add-ons</code>
+                            {I18N.eg}. <code>mozilla/add-ons</code>
                         </small>
                     </div>
-                    <input
-                        className="w-full rounded border-2 border-amber-400 bg-transparent px-4 py-1.5"
-                        type="text"
-                        value={filePath}
-                        onChange={(e) => setFilePath(e.target.value)}
-                    />
+                    <GoodInput name="path" type="text" value={filePath} onChange={(v) => setFilePath(v)} />
                 </div>
                 <div>
                     <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
-                        Locale{' '}
+                        {I18N.localeLabel}{' '}
                         <small>
-                            e.g. <code>en-us</code>
+                            {I18N.eg}. <code>en-us</code>
                         </small>
                     </div>
-                    <input
-                        className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5"
-                        type="text"
-                        value={fileLocale}
-                        onChange={(e) => setFileLocale(e.target.value)}
-                    />
+                    <GoodInput name="locale" type="text" value={locale} onChange={(v) => setFileLocale(v)} />
                 </div>
             </div>
             <div className="my-4 flex space-x-1">
                 <button
-                    className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                    className="border-theme-border bg-theme-content-bg hover:bg-theme-hover mt-1 block cursor-pointer rounded-md border px-2 outline-none sm:text-sm"
                     onClick={fetchEntries}
                 >
-                    Fetch
+                    {I18N.fetch}
                 </button>
                 <button
-                    className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                    className="border-theme-border bg-theme-content-bg hover:bg-theme-hover mt-1 block cursor-pointer rounded-md border px-2 outline-none sm:text-sm"
                     onClick={saveEntries}
                 >
-                    Save Changes <br />
-                    <small>to localStorage</small>
+                    {I18N.saveChanges} <br />
+                    <small>{I18N.toLocalStorage}</small>
                 </button>
                 <button
-                    className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                    className="border-theme-border bg-theme-content-bg hover:bg-theme-hover mt-1 block cursor-pointer rounded-md border px-2 outline-none sm:text-sm"
                     onClick={readEntries}
                 >
-                    Read Changes <br />
-                    <small>from localStorage</small>
+                    {I18N.readChanges} <br />
+                    <small>{I18N.fromLocalStorage}</small>
                 </button>
                 <button
-                    className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                    className="border-theme-border bg-theme-content-bg hover:bg-theme-hover mt-1 block cursor-pointer rounded-md border px-2 outline-none sm:text-sm"
                     onClick={openSettings}
                 >
-                    Settings
+                    {I18N.settings}
                 </button>
             </div>
 
             {settingsVisible && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center">
                     <div className="relative w-96 rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
-                        <h2 className="mb-4 text-2xl font-bold">Settings</h2>
+                        <h2 className="mb-4 text-2xl font-bold">{I18N.settingsTitle}</h2>
                         <div className="mb-4">
-                            <label className="block font-medium text-gray-700 dark:text-gray-200">
-                                Split Method
-                            </label>
+                            <label className="block font-medium text-gray-700 dark:text-gray-200">{I18N.splitMethod}</label>
                             <select
                                 id="split-method-select"
-                                className="w-full rounded border-2 border-amber-400 bg-white text-black px-4 py-1.5 dark:bg-gray-700 dark:text-white"
+                                className="border-theme-border bg-theme-content-bg text-theme-text w-full rounded border-2 px-4 py-1.5"
                                 value={tempSplitMethod}
                                 onChange={(e) => setTempSplitMethod(e.target.value as 'double' | 'single')}
                             >
-                                <option value="double">Double (\n\n)</option>
-                                <option value="single">Single (\n)</option>
+                                <option value="double">{I18N.splitOptionDouble}</option>
+                                <option value="single">{I18N.splitOptionSingle}</option>
                             </select>
                         </div>
                         <div className="mb-4">
@@ -236,7 +228,7 @@ export default function ComparePage() {
                                     onChange={(e) => setTempEnableMarkdownProcessing(e.target.checked)}
                                     className="mr-2"
                                 />
-                                <span>Enable Markdown List Processing</span>
+                                <span>{I18N.enableMarkdownListProcessing}</span>
                             </label>
                         </div>
                         <div className="mb-4">
@@ -247,26 +239,30 @@ export default function ComparePage() {
                                     onChange={(e) => setTempEnableMarkdownBQProcessing(e.target.checked)}
                                     className="mr-2"
                                 />
-                                <span>Enable Markdown Blockquotes Processing</span>
+                                <span>{I18N.enableMarkdownBQProcessing}</span>
                             </label>
                         </div>
                         <div className="flex justify-end space-x-2">
                             <button
-                                className="rounded border-2 border-gray-400 bg-transparent px-4 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                className="border-theme-border bg-theme-content-bg text-theme-text w-full rounded border-2 px-4 py-1.5 hover:bg-theme-bg-error-light"
                                 onClick={cancelSettings}
                             >
-                                Cancel
+                                {I18N.cancel}
                             </button>
                             <button
-                                className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
+                                className="border-theme-border bg-theme-content-bg text-theme-text w-full rounded border-2 px-4 py-1.5 hover:bg-theme-bg-success-light"
                                 onClick={() => {
                                     setSplitMethod(tempSplitMethod);
                                     setEnableMarkdownProcessing(tempEnableMarkdownProcessing);
-                                    setSettingsVisible(false);
                                     setEnableMarkdownBQProcessing(tempEnableMarkdownBQProcessing);
+                                    // persist settings
+                                    localStorage.setItem('splitMode', (tempSplitMethod === 'double').toString());
+                                    localStorage.setItem('mdListProcessOption', tempEnableMarkdownProcessing.toString());
+                                    localStorage.setItem('mdBQProcessOption', tempEnableMarkdownBQProcessing.toString());
+                                    setSettingsVisible(false);
                                 }}
                             >
-                                Save
+                                {I18N.save}
                             </button>
                         </div>
                     </div>
@@ -282,7 +278,8 @@ export default function ComparePage() {
                     splitMethod={splitMethod}
                     path={path}
                     enableMarkdownProcessing={enableMarkdownProcessing}
-                    enableMarkdownBQProcessing={enableMarkdownBQProcessing}                />
+                    enableMarkdownBQProcessing={enableMarkdownBQProcessing}
+                />
             )}
 
             {loading && <Spinner />}

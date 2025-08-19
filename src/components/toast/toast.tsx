@@ -1,3 +1,13 @@
+/*
+ *
+ *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+ *  *
+ *  * Open sourced under GNU General Public License 3.0.
+ *  *
+ *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *
+ */
+
 const toastMappings = {
     error: {
         toastStyles: 'bg-red-50 dark:bg-red-950',

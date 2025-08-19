@@ -1,0 +1,11 @@
+<!--
+  - /*
+  -  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+  -  *
+  -  * Open sourced under GNU General Public License 3.0.
+  -  *
+  -  * Last Modified on Aug 19, 2025 by hoarfroster
+  -  */
+  -->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><radialGradient id="b" cx="247.5" cy="283.5" r="433.67" fx="247.5" fy="283.5" gradientTransform="matrix(1 0 0 1.44 0 67.47)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0b0514"/><stop offset="1" stop-color="#1e293b"/></radialGradient><radialGradient id="c" cx="1149" cy="1080" r="532" fx="1149" fy="1080" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#39270d"/><stop offset="1" stop-color="#1e293b"/></radialGradient><radialGradient id="d" cx="1700.02" cy="-98.84" r="436.5" fx="1700.02" fy="-98.84" gradientTransform="matrix(0 1 -1.08 0 1630.11 -1774.04)" gradientUnits="userSpaceOnUse"><stop offset=".01" stop-color="#38111b"/><stop offset="1" stop-color="#1e293b"/></radialGradient><clipPath id="a"><path d="M0 0h1920v1080H0z" style="fill:none"/></clipPath></defs><g style="clip-path:url(#a)"><path d="M0 0h1920v1080H0z" style="fill:#1e293b"/><path d="M684 476c-11.33 827.81-861.73 827.73-873-.02 11.33-827.79 861.73-827.71 873 .02Z" style="fill:url(#b)"/><circle cx="1149" cy="1080" r="532" style="fill:url(#c)"/><ellipse cx="1737.09" cy="-74.02" rx="472.5" ry="436.5" style="fill:url(#d)" transform="rotate(-70.52 1737.04 -73.979)"/></g></svg>

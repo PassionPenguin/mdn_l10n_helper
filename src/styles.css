@@ -1,5 +1,276 @@
+/*
+ *
+ *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+ *  *
+ *  * Open sourced under GNU General Public License 3.0.
+ *  *
+ *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *
+ */
+
 @import "tailwindcss";
 
+@theme {
+    /* Extended width utilities for large layouts */
+    --w-128: 32rem;
+    --w-144: 36rem;
+    --w-160: 40rem;
+    --w-176: 44rem;
+    --w-192: 48rem;
+    --w-208: 52rem;
+    --w-224: 56rem;
+    --w-256: 64rem;
+    --w-288: 72rem;
+    --w-320: 80rem;
+    --w-384: 96rem;
+
+    /* Primary color system */
+    --color-primary: #2486ac;
+    --color-primary-5: #fafdff;
+    --color-primary-10: #f9fdff;
+    --color-primary-25: #ebf1f3;
+    --color-primary-50: #d6e6ed;
+    --color-primary-100: #b3e0ff;
+    --color-primary-200: #80c1ff;
+    --color-primary-300: #4da2ff;
+    --color-primary-400: #2486ac;
+    --color-primary-500: #0f6b8c;
+    --color-primary-600: #0d5b7a;
+    --color-primary-700: #0b4b68;
+    --color-primary-800: #093b56;
+    --color-primary-900: #072b44;
+    --color-primary-950: #041c2f;
+    --color-primary-975: #021523;
+    --color-primary-990: #01111c;
+    --color-primary-995: #010a12;
+
+    /* Secondary color system - Accent colors */
+    --color-secondary: #b12828;
+    --color-secondary-50: #fce8e8;
+    --color-secondary-100: #f8d7da;
+    --color-secondary-200: #f1a7a7;
+    --color-secondary-300: #eb7676;
+    --color-secondary-400: #b12828;
+    --color-secondary-500: #8c0f0f;
+    --color-secondary-600: #7a0d0d;
+    --color-secondary-700: #680b0b;
+    --color-secondary-800: #560909;
+    --color-secondary-900: #440707;
+    --color-secondary-950: #2f0404;
+
+    /* Theme system CSS variables - these will be updated by JavaScript */
+    --color-theme-bg-primary: var(--color-primary-100);
+    --color-theme-bg: rgb(248 250 252);
+    --color-theme-content-bg-light: rgb(248 250 252);
+    --color-theme-content-bg: #ffffff;
+    --color-theme-content-bg-dark: rgb(243 241 241);
+    --color-theme-nav: rgb(255 255 255);
+    --color-theme-text-primary: var(--color-primary);
+    --color-theme-text: rgb(30 41 59);
+    --color-theme-text-light: rgb(75 85 99);
+    --color-theme-text-muted: rgb(107 114 128);
+    --color-theme-active: rgb(59 130 246);
+    --color-theme-sidebar: rgb(248 250 252);
+    --color-theme-line: rgb(125 211 252);
+    --color-theme-avatar: rgb(203 213 225);
+    --color-theme-input: rgb(255 255 255);
+    --color-theme-input-border: rgb(229 231 235);
+    --color-theme-button: rgb(100 116 139);
+    --color-theme-button-hover: rgb(71 85 105);
+    --color-theme-button-secondary: rgb(243 244 246);
+    --color-theme-button-secondary-hover: rgb(229 231 235);
+    --color-theme-border: rgb(229 231 235);
+    --color-theme-border-divider: rgb(229 231 235);
+    --color-theme-success: rgb(34 197 94);
+    --color-theme-warning: rgb(234 179 8);
+    --color-theme-error: rgb(239 68 68);
+    --color-theme-info: rgb(59 130 246);
+    --color-theme-hover: rgb(249 250 251);
+    --color-theme-card-bg: rgb(255 255 255);
+    --color-theme-popup-bg: rgb(255 255 255);
+    --color-theme-icon: rgb(107 114 128);
+    --color-theme-link: rgb(59 130 246);
+    --color-theme-focus: rgb(59 130 246);
+    --color-theme-text-disabled: rgb(156 163 175);
+    --color-theme-badge-blue: rgb(59 130 246);
+    --color-theme-badge-green: rgb(34 197 94);
+    --color-theme-badge-yellow: rgb(234 179 8);
+    --color-theme-badge-red: rgb(239 68 68);
+    --color-theme-badge-purple: rgb(168 85 247);
+    --color-theme-bg-blue-light: rgb(239 246 255);
+    --color-theme-bg-success-light: rgb(240 253 244);
+    --color-theme-bg-warning-light: rgb(254 252 232);
+    --color-theme-bg-error-light: rgb(254 242 242);
+
+    /* Background image system variables */
+    --theme-bg-image: url('/mdn_l10n_helper/website-background.svg');
+    --theme-bg-size: auto;
+    --theme-bg-position: initial;
+    --theme-bg-repeat: initial;
+    --theme-bg-attachment: initial;
+}
+
+/* Root element configuration for optimal rendering */
 :root {
-    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Dynamic background system - managed by theme.ts */
+    background-image: var(--theme-bg-image, none);
+    background-size: var(--theme-bg-size, auto);
+    background-position: var(--theme-bg-position, initial);
+    background-repeat: var(--theme-bg-repeat, initial);
+    background-attachment: var(--theme-bg-attachment, initial);
+}
+
+/* Dark mode fallbacks */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-theme-bg-primary: var(--color-primary-900);
+        --color-theme-bg: rgb(30 41 59);
+        --color-theme-content-bg-light: rgb(11 18 34);
+        --color-theme-content-bg: rgb(15 23 42);
+        --color-theme-content-bg-dark: rgb(30 41 59);
+        --color-theme-nav: rgb(15 23 42);
+        --color-theme-text-primary: var(--color-primary-300);
+        --color-theme-text: rgb(241 245 249);
+        --color-theme-text-light: rgb(203 213 225);
+        --color-theme-text-muted: rgb(148 163 184);
+        --color-theme-active: rgb(96 165 250);
+        --color-theme-sidebar: rgb(15 23 42);
+        --color-theme-line: rgb(56 189 248);
+        --color-theme-avatar: rgb(51 65 85);
+        --color-theme-input: rgb(51 65 85);
+        --color-theme-input-border: rgb(71 85 105);
+        --color-theme-button: rgb(14 165 233);
+        --color-theme-button-hover: rgb(2 132 199);
+        --color-theme-button-secondary: rgb(51 65 85);
+        --color-theme-button-secondary-hover: rgb(71 85 105);
+        --color-theme-border: rgb(71 85 105);
+        --color-theme-border-divider: rgb(94, 108, 124);
+        --color-theme-success: rgb(34 197 94);
+        --color-theme-warning: rgb(234 179 8);
+        --color-theme-error: rgb(248 113 113);
+        --color-theme-info: rgb(96 165 250);
+        --color-theme-hover: rgb(51 65 85);
+        --color-theme-card-bg: rgb(51 65 85);
+        --color-theme-popup-bg: rgb(51 65 85);
+        --color-theme-icon: rgb(148 163 184);
+        --color-theme-link: rgb(96 165 250);
+        --color-theme-focus: rgb(96 165 250);
+        --color-theme-text-disabled: rgb(100 116 139);
+        --color-theme-badge-blue: rgb(96 165 250);
+        --color-theme-badge-green: rgb(34 197 94);
+        --color-theme-badge-yellow: rgb(234 179 8);
+        --color-theme-badge-red: rgb(248 113 113);
+        --color-theme-badge-purple: rgb(196 181 253);
+        --color-theme-bg-blue-light: rgb(30 58 138);
+        --color-theme-bg-success-light: rgb(22 101 52);
+        --color-theme-bg-warning-light: rgb(133 77 14);
+        --color-theme-bg-error-light: rgb(153 27 27);
+
+        --theme-bg-image: url('/mdn_l10n_helper/website-background-dark.svg');
+    }
+}
+
+/* Body styling with theme integration */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--color-theme-bg, rgb(248 250 252));
+    color: var(--color-theme-text, rgb(30 41 59));
+    transition:
+            background-color 0.3s ease,
+            color 0.3s ease;
+}
+
+/* Enhanced tooltip component with theme support */
+.tooltippable {
+    @apply relative mr-2 inline-block;
+
+    .tooltip {
+        @apply invisible absolute z-10 mt-2 w-max rounded px-2 py-1 text-xs transition-all duration-300;
+        background-color: var(--theme-text);
+        color: var(--theme-bg);
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(4px);
+        opacity: 0;
+    }
+
+    &:hover .tooltip {
+        @apply visible;
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Clean link styling */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--theme-active);
+}
+
+/* Theme-aware focus states */
+*:focus-visible {
+    outline: 2px solid var(--theme-active);
+    outline-offset: 2px;
+}
+
+/* Component preview system - for design system demos */
+.preview-root {
+    /* Light theme preview variables */
+    --theme-bg: rgb(248 250 252);
+    --theme-nav: rgb(56 189 248);
+    --theme-nav-title: rgb(37 99 235);
+    --theme-line: rgb(125 211 252);
+    --theme-text: rgb(30 41 59);
+    --theme-active: rgb(37 99 235);
+    --theme-avatar: rgb(203 213 225);
+    --theme-input: rgb(255 255 255);
+    --theme-input-border: rgb(229 231 235);
+    --theme-button: rgb(100 116 139);
+
+    transition: all 0.3s ease;
+}
+
+.preview-root.dark {
+    /* Dark theme preview variables */
+    --theme-bg: rgb(30 41 59);
+    --theme-nav: rgb(14 165 233);
+    --theme-nav-title: rgb(96 165 250);
+    --theme-line: rgb(56 189 248);
+    --theme-text: rgb(241 245 249);
+    --theme-active: rgb(96 165 250);
+    --theme-avatar: rgb(51 65 85);
+    --theme-input: rgb(51 65 85);
+    --theme-input-border: rgb(71 85 105);
+    --theme-button: rgb(14 165 233);
+}
+
+.fab {
+    @apply bg-primary-500 hover:bg-primary-600 focus:ring-primary-400 fixed right-4 bottom-4 z-50 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-white shadow-lg transition-all duration-300 ease-in-out select-none focus:ring-2 focus:ring-offset-2 focus:outline-none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border-radius: 0.5rem !important;
+    background-clip: padding-box !important;
+    -webkit-box-shadow: 0 0 0 0 transparent inset !important;
 }

@@ -1,4 +1,15 @@
+/*
+ *
+ *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+ *  *
+ *  * Open sourced under GNU General Public License 3.0.
+ *  *
+ *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *
+ */
+
 import Entry from '@models/entry';
+import I18N from '@utils/i18n.base';
 
 interface DiffReviewProps {
     l10nedEntry: Entry | null | undefined;
@@ -12,7 +23,7 @@ interface DiffReviewProps {
 
 export default function CompareContent({ l10nedEntry, sourceEntry, locale, splitMethod, path, enableMarkdownProcessing, enableMarkdownBQProcessing }: DiffReviewProps) {
     if (!l10nedEntry || !sourceEntry) {
-        return <div>Entries are not available for comparison.</div>;
+        return <div>{I18N.diffEntriesUnavailable}</div>;
     }
 
     let splitter: string = splitMethod === 'single' ? '\n' : '\n\n';
@@ -27,7 +38,7 @@ export default function CompareContent({ l10nedEntry, sourceEntry, locale, split
                 if (enableMarkdownBQProcessing && block.replace(/^\s+/, '').startsWith('>')) {
                     return block
                         .split(/\n\s*>\s*\n/)
-                        .flatMap((item, index, arr) => index < arr.length - 1 ? [item, '>'] : [item]);
+                        .flatMap((item, index, arr) => (index < arr.length - 1 ? [item, '>'] : [item]));
                 }
                 return block
                     .split(/\n(?=\s*- )/)
@@ -44,12 +55,12 @@ export default function CompareContent({ l10nedEntry, sourceEntry, locale, split
             <section className="flex flex-row break-all">
                 <div className="w-1/2">
                     <h2 className="text-2xl font-bold">
-                        Localized <span>{locale}</span>
+                        {I18N.localized} <span>{locale}</span>
                     </h2>
                     <L10nedEntryProperties entry={l10nedEntry} />
                 </div>
                 <div className="w-1/2">
-                    <h2 className="text-2xl font-bold">Source</h2>
+                    <h2 className="text-2xl font-bold">{I18N.source}</h2>
                     <SourceEntryProperties entry={sourceEntry} path={path} />
                 </div>
             </section>
@@ -93,20 +104,20 @@ function L10nedEntryProperties({ entry }: { entry: Entry | null | undefined }) {
     if (entry === undefined) {
         return null;
     } else if (entry === null) {
-        return <div>Entry not localized yet</div>;
+        return <div>{I18N.entryNotLocalizedYet}</div>;
     } else {
         return (
             <div>
-                <h3 className="text-xl font-bold">Metadata</h3>
+                <h3 className="text-xl font-bold">{I18N.metadata}</h3>
                 <ul>
                     <li>
-                        <b>Title</b>: <code>{entry?.title}</code>
+                        <b>{I18N.titleLabel}</b>: <code>{entry?.title}</code>
                     </li>
                     <li>
-                        <b>Slug</b>: <code>{entry?.slug}</code>
+                        <b>{I18N.slugLabel}</b>: <code>{entry?.slug}</code>
                     </li>
                     <li>
-                        <b>Source Commit</b>: <code>{entry?.sourceCommit}</code>
+                        <b>{I18N.sourceCommitLabel}</b>: <code>{entry?.sourceCommit}</code>
                     </li>
                     <li />
                 </ul>
@@ -119,25 +130,25 @@ function SourceEntryProperties({ entry, path }: { entry: Entry | null | undefine
     if (entry === undefined) {
         return null;
     } else if (entry === null) {
-        return <div>Entry not localized yet</div>;
+        return <div>{I18N.entryNotLocalizedYet}</div>;
     } else {
         return (
             <div>
-                <h3 className="text-xl font-bold">Metadata</h3>
+                <h3 className="text-xl font-bold">{I18N.metadata}</h3>
                 <ul>
                     <li>
-                        <b>Title</b>: <code>{entry?.title}</code>
+                        <b>{I18N.titleLabel}</b>: <code>{entry?.title}</code>
                     </li>
                     <li>
-                        <b>Slug</b>: <code>{entry?.slug}</code>
+                        <b>{I18N.slugLabel}</b>: <code>{entry?.slug}</code>
                     </li>
                     <li>
-                        <b>Current Commit</b>: <code>{entry?.sourceCommit}</code>
+                        <b>{I18N.currentCommitLabel}</b>: <code>{entry?.sourceCommit}</code>
                     </li>
                     <li>
-                        <b>Link to File</b>:
+                        <b>{I18N.linkToFileLabel}</b>:
                         <a href={`https://github.com/mdn/content/blob/main/files/en-us/${path}/index.md`}>
-                            Click HERE!
+                            {I18N.clickHere}
                         </a>
                     </li>
                 </ul>

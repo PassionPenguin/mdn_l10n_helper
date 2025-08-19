@@ -1,9 +1,21 @@
+/*
+ *
+ *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+ *  *
+ *  * Open sourced under GNU General Public License 3.0.
+ *  *
+ *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *
+ */
+
 import { useContext, useState } from 'react';
 import { BannerContext } from '@/App';
 import Spinner from '@components/spinner/spinner';
 import { usePreferences } from '@utils/preferences-context';
 import { Link, useSearchParams } from 'react-router';
 import PullRequest from '@models/pr';
+import GoodInput from '@components/form/input.tsx';
+import I18N from '@utils/i18n.base';
 
 export default function PRPage() {
     const [searchParams] = useSearchParams();
@@ -18,13 +30,13 @@ export default function PRPage() {
     const fetchPR = async () => {
         setLoading(true);
         if (!prID) {
-            setMessage({ message: 'PR ID is required', type: 'error' });
+            setMessage({ message: I18N.msgPRIdRequired, type: 'error' });
             return;
         }
         try {
             const pr = await PullRequest.fromGitHub(prID, preferences.accessToken);
             setPR(pr);
-            setMessage({ message: 'PR fetched successfully', type: 'success' });
+            setMessage({ message: I18N.msgPRFetchedSuccess, type: 'success' });
         } catch (e: any) {
             setMessage({ message: e.message, type: 'error' });
         }
@@ -33,30 +45,25 @@ export default function PRPage() {
 
     return (
         <main className="container mx-auto mt-4">
-            <h1 className="mb-8 text-4xl font-bold">PR Files</h1>
+            <h1 className="mb-8 text-4xl font-bold">{I18N.prFiles}</h1>
             <div className="my-4 flex space-x-1">
                 <div>
                     <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
-                        PR ID{' '}
+                        {I18N.prId}{' '}
                         <small>
-                            e.g. <code>9999</code>
+                            {I18N.eg}. <code>9999</code>
                         </small>
                     </div>
-                    <input
-                        className="w-full rounded border-2 border-amber-400 bg-transparent px-4 py-1.5"
-                        type="text"
-                        value={prID}
-                        onChange={(e) => setPRID(e.target.value)}
-                    />
+                    <div className="flex space-x-2">
+                        <GoodInput name="pr-id" onChange={(v) => setPRID(v)} />
+                        <button
+                            className="border-theme-border bg-theme-content-bg hover:bg-theme-hover mt-1 block cursor-pointer rounded-md border px-2 outline-none sm:text-sm"
+                            onClick={fetchPR}
+                        >
+                            {I18N.fetch}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div className="my-4 flex space-x-1">
-                <button
-                    className="rounded border-2 border-amber-400 bg-transparent px-4 py-1.5 hover:bg-amber-100 dark:hover:bg-amber-900"
-                    onClick={fetchPR}
-                >
-                    Fetch
-                </button>
             </div>
 
             {pr && (
