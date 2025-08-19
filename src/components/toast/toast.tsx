@@ -10,18 +10,18 @@
 
 const toastMappings = {
     error: {
-        toastStyles: 'bg-red-50 dark:bg-red-950',
-        iconStyles: 'text-red-700 dark:text-red-400',
+        toastStyles: 'bg-theme-bg-error-light/10',
+        iconStyles: 'text-theme-error',
         icon: 'error',
     },
     success: {
-        toastStyles: 'bg-green-50 dark:bg-green-950',
-        iconStyles: 'text-green-700 dark:text-green-400',
+        toastStyles: 'bg-theme-bg-success-light',
+        iconStyles: 'text-theme-success',
         icon: 'check_circle',
     },
     info: {
-        toastStyles: 'bg-blue-50 dark:bg-blue-950',
-        iconStyles: 'text-blue-700 dark:text-blue-400',
+        toastStyles: 'bg-theme-blue-light',
+        iconStyles: 'text-theme-info',
         icon: 'info',
     },
 };
@@ -42,7 +42,7 @@ export default function Toast({
     return (
         <div
             className={
-                'toast- fixed top-4 left-1/2 z-50 flex -translate-x-1/2 rounded-xl bg-gray-200 px-3 pt-1.5 pb-1.5 font-bold shadow-lg dark:bg-gray-800 ' +
+                'toast- fixed top-4 left-1/2 z-50 flex -translate-x-1/2 rounded-xl bg-theme-card-bg px-3 pt-1.5 pb-1.5 font-bold shadow-lg' +
                 toastMappings[type].toastStyles
             }
         >
@@ -58,7 +58,7 @@ export default function Toast({
                 <span>{message}</span>
             </p>
             <span
-                className="material-symbols-rounded mr-4 box-content h-5 w-5 cursor-pointer rounded-full p-1.5 align-middle hover:text-black dark:hover:text-white"
+                className="material-symbols-rounded mr-4 box-content h-5 w-5 cursor-pointer rounded-full p-1.5 align-middle hover:text-theme-text"
                 onClick={onClose}
             >
                 close

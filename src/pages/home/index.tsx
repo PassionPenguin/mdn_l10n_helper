@@ -23,21 +23,21 @@ export default function HomePage() {
                 <p>{I18N.homeIntro}</p>
                 <p>
                     {I18N.homeToken1}
-                    <Link to="/preferences" className="mx-2 text-orange-700 dark:text-orange-300">
+                    <Link to="/preferences" className="mx-2 text-theme-text-primary">
                         {I18N.homeTokenHere}
                     </Link>
                     {I18N.homeToken2}
                 </p>
                 <p>
                     {I18N.homeCompare1}
-                    <Link to="/compare" className="mx-2 text-orange-700 dark:text-orange-300">
+                    <Link to="/compare" className="mx-2 text-theme-text-primary">
                         <code>/compare</code>
                     </Link>
                     {I18N.homeCompare2} <code>mdn/content</code>{I18N.homeCompare3}
                 </p>
                 <p>
                     {I18N.homePR1}
-                    <Link to="/pr" className="mx-2 text-orange-700 dark:text-orange-300">
+                    <Link to="/pr" className="mx-2 text-theme-text-primary">
                         <code>/pr</code>
                     </Link>
                     {I18N.homePR2}

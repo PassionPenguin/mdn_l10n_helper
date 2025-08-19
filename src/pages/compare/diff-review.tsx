@@ -85,7 +85,7 @@ export default function CompareContent({ l10nedEntry, sourceEntry, locale, split
                     return [
                         <div
                             key={i}
-                            className={`flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-gray-200 dark:hover:bg-gray-700`}
+                            className={`flex rounded px-4 py-1 font-mono break-all whitespace-pre-wrap hover:bg-theme-hover`}
                         >
                             <div className="mr-4 w-1/2">{l10nedLines[i] || <>&nbsp;</>}</div>
                             <div className="w-1/2">{sourceLines[i] || <>&nbsp;</>}</div>

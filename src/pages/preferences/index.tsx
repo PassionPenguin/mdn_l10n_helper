@@ -98,8 +98,8 @@ export default function PreferencesPage() {
 
     return (
         <main className="container mx-auto mt-4 px-8">
-            <h1 className="mb-8 text-4xl font-bold items-center space-x-2 flex">
-                <span className="material-symbols-rounded text-4xl! text-theme-text-primary">settings</span>
+            <h1 className="mb-8 flex items-center space-x-2 text-4xl font-bold">
+                <span className="material-symbols-rounded text-theme-text-primary text-4xl!">settings</span>
                 <span>{I18N.preferences}</span>
             </h1>
             <div className="my-4">
@@ -174,9 +174,11 @@ export default function PreferencesPage() {
                     )}
                 </div>
 
-                {mappedPreferences.map((preference, index) => (
-                    <PreferenceItem key={index} {...preference} />
-                ))}
+                <div className="bg-theme-content-bg rounded-lg">
+                    {mappedPreferences.map((preference, index) => (
+                        <PreferenceItem key={index} {...preference} />
+                    ))}
+                </div>
             </div>
         </main>
     );
@@ -184,7 +186,7 @@ export default function PreferencesPage() {
 
 function PreferenceItem(props: PreferenceItemProps) {
     return (
-        <div className="bg-theme-content-bg flex justify-between rounded-lg p-4 shadow">
+        <div className="flex justify-between p-4 shadow">
             <div className="w-64 lg:w-96">
                 <h2 className="text-theme-text text-lg font-bold">{props.name}</h2>
                 <p className="text-theme-text-muted text-sm font-medium">{props.description}</p>

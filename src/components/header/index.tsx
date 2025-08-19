@@ -42,7 +42,7 @@ export default function Header() {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={toggleMobileMenu}
-                    className="flex items-center justify-center rounded-lg p-2 text-gray-600 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
+                    className="flex items-center justify-center rounded-lg p-2 lg:hidden text-theme-text-light hover:bg-theme-hover"
                 >
                     <span className="material-symbols-rounded text-xl">menu</span>
                 </button>

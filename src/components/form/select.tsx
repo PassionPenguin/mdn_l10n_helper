@@ -54,7 +54,7 @@ export default function GoodSelect({
                         <option
                             key={option.value}
                             value={option.value}
-                            className="bg-gray-200 px-4 py-2 dark:bg-gray-800"
+                            className="bg-theme-content-bg-dark"
                         >
                             {option.label}
                         </option>

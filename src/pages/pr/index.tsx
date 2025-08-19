@@ -45,13 +45,13 @@ export default function PRPage() {
 
     return (
         <main className="container mx-auto mt-4">
-            <h1 className="mb-8 text-4xl font-bold items-center space-x-2 flex">
-                <span className="material-symbols-rounded text-4xl! text-theme-text-primary">description</span>
+            <h1 className="mb-8 flex items-center space-x-2 text-4xl font-bold">
+                <span className="material-symbols-rounded text-theme-text-primary text-4xl!">description</span>
                 <span>{I18N.prFiles}</span>
             </h1>
             <div className="my-4 flex space-x-1">
                 <div>
-                    <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
+                    <div className="text-theme-text-light pb-1 font-medium">
                         {I18N.prId}{' '}
                         <small>
                             {I18N.eg}. <code>9999</code>
@@ -73,18 +73,15 @@ export default function PRPage() {
                 <ul className="my-8 list-disc">
                     {pr.files.map((file) => (
                         <li key={file.path + file.locale}>
-                            <code className="rounded bg-orange-100 px-2 py-1.5 dark:bg-orange-900">{file.status}</code>/
-                            <code className="rounded bg-orange-50 px-2 py-1.5 font-black dark:bg-orange-950">
-                                {file.locale}
-                            </code>
-                            :
+                            <code className="bg-theme-bg-primary rounded px-2 py-1.5">{file.status}</code>/
+                            <code className="bg-theme-bg-primary rounded px-2 py-1.5 font-black">{file.locale}</code>:
                             <Link
-                                className="pl-4 text-orange-700 dark:text-orange-300"
+                                className="pl-4 text-theme-text-primary"
                                 to={`/compare?owner=${pr.owner}&branch=${pr.branch}&locale=${file.locale}&path=${file.path}`}
                             >
                                 {file.path}
                             </Link>
-                            <span className="text-gray-700 dark:text-gray-300">/index.md</span>
+                            <span className="text-theme-text-light">/index.md</span>
                         </li>
                     ))}
                 </ul>

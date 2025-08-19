@@ -142,7 +142,7 @@ export default function ComparePage() {
             </h1>
             <div className="my-4 flex space-x-1">
                 <div>
-                    <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
+                    <div className="pb-1 font-medium text-theme-text-light">
                         {I18N.ownerLabel}{' '}
                         <small>
                             {I18N.eg}. <code>mdn</code>
@@ -151,7 +151,7 @@ export default function ComparePage() {
                     <GoodInput name="owner" type="text" value={l10nOwner} onChange={(v) => setL10nOwner(v)} />
                 </div>
                 <div>
-                    <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
+                    <div className="pb-1 font-medium text-theme-text-light">
                         {I18N.branchLabel}{' '}
                         <small>
                             {I18N.eg}. <code>main</code>
@@ -160,7 +160,7 @@ export default function ComparePage() {
                     <GoodInput name="branch" type="text" value={l10nBranch} onChange={(v) => setL10nBranch(v)} />
                 </div>
                 <div className="flex-1">
-                    <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
+                    <div className="pb-1 font-medium text-theme-text-light">
                         {I18N.pathLabel}{' '}
                         <small>
                             {I18N.eg}. <code>mozilla/add-ons</code>
@@ -169,7 +169,7 @@ export default function ComparePage() {
                     <GoodInput name="path" type="text" value={filePath} onChange={(v) => setFilePath(v)} />
                 </div>
                 <div>
-                    <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">
+                    <div className="pb-1 font-medium text-theme-text-light">
                         {I18N.localeLabel}{' '}
                         <small>
                             {I18N.eg}. <code>en-us</code>
@@ -208,11 +208,11 @@ export default function ComparePage() {
             </div>
 
             {settingsVisible && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center">
-                    <div className="relative w-96 rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/10 w-full h-full">
+                    <div className="relative w-96 rounded-lg p-6 shadow-lg bg-theme-card-bg">
                         <h2 className="mb-4 text-2xl font-bold">{I18N.settingsTitle}</h2>
                         <div className="mb-4">
-                            <label className="block font-medium text-gray-700 dark:text-gray-200">{I18N.splitMethod}</label>
+                            <label className="block font-medium text-theme-text-light">{I18N.splitMethod}</label>
                             <select
                                 id="split-method-select"
                                 className="border-theme-border bg-theme-content-bg text-theme-text w-full rounded border-2 px-4 py-1.5"

@@ -22,7 +22,7 @@ export default function Spinner(props: SpinnerProps) {
                 xmlns="http://www.w3.org/2000/svg"
                 className={
                     (props.size === 'sm' ? 'h-6 w-6' : props.size === 'lg' ? 'h-12 w-12' : 'h-8 w-8') +
-                    ' animate-spin fill-cyan-600 text-gray-50 dark:fill-cyan-200 dark:text-gray-600'
+                    ' animate-spin fill-theme-text-primary text-theme-content-bg'
                 }
             >
                 <path
