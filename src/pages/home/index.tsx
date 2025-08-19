@@ -14,7 +14,10 @@ import I18N from '@utils/i18n.base';
 export default function HomePage() {
     return (
         <main className="container mx-auto mt-4">
-            <h1 className="mb-8 text-4xl font-bold">{I18N.homeTitle}</h1>
+            <h1 className="mb-8 text-4xl font-bold items-center space-x-2 flex">
+                <span className="material-symbols-rounded text-4xl! text-theme-text-primary">home</span>
+                <span>{I18N.homeTitle}</span>
+            </h1>
             <div className="my-4">
                 <h2 className="mb-2 text-2xl font-black">{I18N.homeHelperTitle}</h2>
                 <p>{I18N.homeIntro}</p>

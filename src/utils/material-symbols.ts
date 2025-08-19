@@ -8,7 +8,7 @@
  *
  */
 
-const SYMBOLS = ['compare', 'description'];
+const SYMBOLS = ['compare', 'description', 'check_circle', 'close', 'error', 'info', 'menu', 'home', 'settings'];
 
 export default function useSymbols() {
     const symbols = SYMBOLS.sort((a, b) => a.localeCompare(b)).join(',');

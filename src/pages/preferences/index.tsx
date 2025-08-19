@@ -98,7 +98,10 @@ export default function PreferencesPage() {
 
     return (
         <main className="container mx-auto mt-4 px-8">
-            <h1 className="mb-8 text-4xl font-bold">{I18N.preferences}</h1>
+            <h1 className="mb-8 text-4xl font-bold items-center space-x-2 flex">
+                <span className="material-symbols-rounded text-4xl! text-theme-text-primary">settings</span>
+                <span>{I18N.preferences}</span>
+            </h1>
             <div className="my-4">
                 <div className="mb-8 font-medium">
                     <p>

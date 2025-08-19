@@ -23,7 +23,7 @@ export default function Header() {
     };
 
     return (
-        <header className="sticky top-0 z-40 h-13 break-keep">
+        <header className="sticky top-0 z-40 h-13 break-keep bg-theme-card-bg">
             <nav className="mx-auto flex items-center justify-between px-8 py-2.5" aria-label="Global">
                 <div className="flex items-center lg:flex-1">
                     <div className="flex items-center">

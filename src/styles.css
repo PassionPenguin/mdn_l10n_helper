@@ -103,11 +103,17 @@
     --color-theme-bg-error-light: rgb(254 242 242);
 
     /* Background image system variables */
-    --theme-bg-image: url('/mdn_l10n_helper/website-background.svg');
+    --theme-bg-image: none;
     --theme-bg-size: auto;
     --theme-bg-position: initial;
     --theme-bg-repeat: initial;
     --theme-bg-attachment: initial;
+
+    /* Custom scrollbar styles for /app pages */
+    --scrollbar-width: 8px;
+    --scrollbar-track-bg: transparent;
+    --scrollbar-thumb-bg: rgba(107, 114, 128, 0.3);
+    --scrollbar-thumb-hover-bg: rgba(107, 114, 128, 0.5);
 }
 
 /* Root element configuration for optimal rendering */
@@ -117,13 +123,6 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    /* Dynamic background system - managed by theme.ts */
-    background-image: var(--theme-bg-image, none);
-    background-size: var(--theme-bg-size, auto);
-    background-position: var(--theme-bg-position, initial);
-    background-repeat: var(--theme-bg-repeat, initial);
-    background-attachment: var(--theme-bg-attachment, initial);
 }
 
 /* Dark mode fallbacks */

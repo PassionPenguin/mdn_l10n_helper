@@ -51,15 +51,19 @@ function App() {
                 />
                 <BannerContext.Provider value={{ message: bannerMessage, setMessage: setBannerMessage }}>
                     <Suspense fallback={<Spinner />}>
-                        <Header />
-                        <HashRouter>
-                            <Routes>
-                                <Route path="/" element={<HomePage />} />
-                                <Route path="/compare" element={<ComparePage />} />
-                                <Route path="/pr" element={<PRPage />} />
-                                <Route path="/preferences" element={<PreferencesPage />} />
-                            </Routes>
-                        </HashRouter>
+                        <div className="h-max min-h-full w-full flex-1 m-0 bg-(image:--theme-bg-image) bg-cover bg-center bg-no-repeat">
+                            <Header />
+                            <div className="text-theme-text flex h-[calc(100vh-52px)] overflow-y-scroll flex-col">
+                                <HashRouter>
+                                    <Routes>
+                                        <Route path="/" element={<HomePage />} />
+                                        <Route path="/compare" element={<ComparePage />} />
+                                        <Route path="/pr" element={<PRPage />} />
+                                        <Route path="/preferences" element={<PreferencesPage />} />
+                                    </Routes>
+                                </HashRouter>
+                            </div>
+                        </div>
                     </Suspense>
                 </BannerContext.Provider>
             </PreferencesProvider>

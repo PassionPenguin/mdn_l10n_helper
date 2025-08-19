@@ -45,7 +45,10 @@ export default function PRPage() {
 
     return (
         <main className="container mx-auto mt-4">
-            <h1 className="mb-8 text-4xl font-bold">{I18N.prFiles}</h1>
+            <h1 className="mb-8 text-4xl font-bold items-center space-x-2 flex">
+                <span className="material-symbols-rounded text-4xl! text-theme-text-primary">description</span>
+                <span>{I18N.prFiles}</span>
+            </h1>
             <div className="my-4 flex space-x-1">
                 <div>
                     <div className="pb-1 font-medium text-gray-700 dark:text-gray-200">

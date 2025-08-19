@@ -428,11 +428,11 @@ function applyBackgroundImage(enabled: boolean): void {
         root.style.setProperty('--theme-bg-repeat', 'no-repeat');
         root.style.setProperty('--theme-bg-attachment', 'fixed');
     } else {
-        root.style.removeProperty('--theme-bg-image');
-        root.style.removeProperty('--theme-bg-size');
-        root.style.removeProperty('--theme-bg-position');
-        root.style.removeProperty('--theme-bg-repeat');
-        root.style.removeProperty('--theme-bg-attachment');
+        root.style.setProperty('--theme-bg-image', 'none');
+        root.style.setProperty('--theme-bg-size', 'cover');
+        root.style.setProperty('--theme-bg-position', 'center');
+        root.style.setProperty('--theme-bg-repeat', 'no-repeat');
+        root.style.setProperty('--theme-bg-attachment', 'fixed');
     }
 }
 
