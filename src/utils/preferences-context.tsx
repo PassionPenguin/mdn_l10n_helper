@@ -13,6 +13,7 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 // Define the type for your preferences
 interface Preferences {
     accessToken?: string;
+    backendUrl?: string;
 }
 
 // Define the type for the context value
@@ -27,6 +28,7 @@ const PreferencesContext = createContext<PreferencesContextType | undefined>(und
 // Define a default preference set
 const defaultPreferences: Preferences = {
     accessToken: undefined,
+    backendUrl: 'http://localhost:3030',
 };
 
 // Provider component

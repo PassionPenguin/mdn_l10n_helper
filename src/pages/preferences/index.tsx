@@ -81,6 +81,13 @@ export default function PreferencesPage() {
             onChange: (value: any) => updatePreferences({ accessToken: value }),
         },
         {
+            name: 'Backend URL',
+            description: 'Base URL for the local backend server (without trailing slash).',
+            inputType: PreferenceInputType.TEXT,
+            value: preferences.backendUrl,
+            onChange: (value: any) => updatePreferences({ backendUrl: value }),
+        },
+        {
             name: I18N.languageLabel,
             description: I18N.languageDesc,
             inputType: PreferenceInputType.SELECT,

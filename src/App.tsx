@@ -11,6 +11,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router';
 import ComparePage from './pages/compare';
+import ReviewPage from '@pages/review';
 import Toast from './components/toast/toast';
 import { PreferencesProvider } from '@utils/preferences-context';
 import Spinner from './components/spinner/spinner';
@@ -59,6 +60,7 @@ function App() {
                                         <Route path="/" element={<HomePage />} />
                                         <Route path="/compare" element={<ComparePage />} />
                                         <Route path="/pr" element={<PRPage />} />
+                                        <Route path="/review" element={<ReviewPage />} />
                                         <Route path="/preferences" element={<PreferencesPage />} />
                                     </Routes>
                                 </HashRouter>
@@ -85,9 +87,8 @@ function App() {
                     <li className="text-theme-text-light! hover:text-theme-text! hover:bg-theme-hover px-4 py-2 duration-75">
                         <a href="/mdn_l10n_helper/#compare">{I18N.compare}</a>
                     </li>
-                    <li className="text-theme-text-light! hover:text-theme-text! hover:bg-theme-hover px-4 py-2 duration-75">
-                        <a href="/mdn_l10n_helper/#pr">{I18N.prFiles}</a>
-                    </li>
+                    <li className="text-theme-text-light! hover:text-theme-text! hover:bg-theme-hover px-4 py-2 duration-75"><a href="/mdn_l10n_helper/#pr">{I18N.prFiles}</a></li>
+                    <li className="text-theme-text-light! hover:text-theme-text! hover:bg-theme-hover px-4 py-2 duration-75"><a href="/mdn_l10n_helper/#review">Review</a></li>
                 </ul>
             </div>
         </>

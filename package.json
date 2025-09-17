@@ -1,7 +1,30 @@
 {
   "name": "mdn_l10n_helper",
+  "version": "0.1.1",
+  "description": "A modern web application that enhances the localization and review process of MDN Web Docs",
   "homepage": "https://passionpenguin.github.io/mdn_l10n_helper/",
-  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PassionPenguin/mdn_l10n_helper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PassionPenguin/mdn_l10n_helper/issues"
+  },
+  "license": "GPL-3.0",
+  "author": {
+    "name": "PassionPenguin",
+    "url": "https://github.com/PassionPenguin"
+  },
+  "keywords": [
+    "mdn",
+    "localization",
+    "l10n",
+    "translation",
+    "web-docs",
+    "react",
+    "typescript",
+    "vite"
+  ],
   "private": true,
   "type": "module",
   "scripts": {
