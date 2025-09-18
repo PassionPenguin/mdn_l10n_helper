@@ -58,7 +58,7 @@ export default function PRPage() {
                         </small>
                     </div>
                     <div className="flex space-x-2">
-                        <GoodInput name="pr-id" onChange={(v) => setPRID(v)} />
+                        <GoodInput name="pr-id" defaultValue={prID} onChange={(v) => setPRID(v)} />
                         <button
                             className="border-theme-border bg-theme-content-bg hover:bg-theme-hover mt-1 block cursor-pointer rounded-md border px-2 outline-none sm:text-sm"
                             onClick={fetchPR}
