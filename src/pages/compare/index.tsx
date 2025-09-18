@@ -76,6 +76,7 @@ export default function ComparePage() {
         setLoading(true);
         if (!filePath || !fileLocale || !l10nBranch || !l10nOwner) {
             setMessage({ message: I18N.msgPathLocaleRequired, type: 'error' });
+            setLoading(false);
             return;
         }
         try {
@@ -175,7 +176,8 @@ export default function ComparePage() {
                             {I18N.eg}. <code>en-us</code>
                         </small>
                     </div>
-                    <GoodInput name="locale" type="text" value={locale} onChange={(v) => setFileLocale(v)} />
+                    {/* Bind to fileLocale so manual edits are reflected and used */}
+                    <GoodInput name="locale" type="text" value={fileLocale} onChange={(v) => setFileLocale(v)} />
                 </div>
             </div>
             <div className="my-4 flex space-x-1">
@@ -272,14 +274,14 @@ export default function ComparePage() {
                 </div>
             )}
 
-            {l10nedEntry && sourceEntry && locale && (
+            {l10nedEntry && sourceEntry && fileLocale && (
                 <DiffReview
                     key={splitMethod}
                     l10nedEntry={l10nedEntry}
                     sourceEntry={sourceEntry}
-                    locale={locale}
+                    locale={fileLocale}
                     splitMethod={splitMethod}
-                    path={path}
+                    path={filePath ?? null}
                     enableMarkdownProcessing={enableMarkdownProcessing}
                     enableMarkdownBQProcessing={enableMarkdownBQProcessing}
                 />
