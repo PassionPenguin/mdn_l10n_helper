@@ -2,18 +2,20 @@
  *
  *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
  *  *
- *  * Open sourced under GNU General Public License 3.0.
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
  *  *
- *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *  * Open sourced under GNU General Public License 3.0.
  *
  */
 
 import yaml from 'js-yaml';
 import { Octokit } from '@octokit/core';
 import { b64DecodeUnicode } from '@utils/utils';
+import { handleGitHubError } from '@models/error.ts';
 
 class Entry {
     title: string;
+    shortTitle: string | undefined;
     slug: string;
     // sourceCommit:
     //  - when the entry is a l10ned one, this refers to the commit hash of the source entry
@@ -21,8 +23,9 @@ class Entry {
     sourceCommit: string | undefined;
     content: string;
 
-    constructor(title: string, slug: string, sourceCommit: string, content: string) {
+    constructor(title: string, shortTitle: string, slug: string, sourceCommit: string, content: string) {
         this.title = title;
+        this.shortTitle = shortTitle;
         this.slug = slug;
         this.sourceCommit = sourceCommit;
         this.content = content;
@@ -36,60 +39,60 @@ class Entry {
         locale: string,
         accessToken: string | undefined
     ): Promise<Entry> {
-        const octokit = new Octokit({
-            auth: accessToken,
-        });
-        const endpoint = `GET /repos/${owner}/${repo}/contents/files/${locale}/${path}/index.md`;
-        const response = await octokit.request(endpoint, {
-            ref: branch,
-            headers: {
-                'X-GitHub-Api-Version': '2022-11-28',
-            },
-        });
-
-        if (response.status === 404) {
-            throw new Error('Resource not found');
-        } else if (response.status === 403) {
-            throw new Error('Forbidden');
-        }
-
-        const text = b64DecodeUnicode(response.data.content);
-
-        const match = text.match(/^---([\s\S]+?)---/);
-        if (match) {
-            let metaData: any = yaml.load(match[1]);
-            if (!metaData.title || !metaData.slug) {
-                throw new Error('Invalid metadata found in the file');
-            }
-
-            if (locale !== 'en-us') {
-                return new Entry(
-                    metaData.title,
-                    metaData.slug,
-                    metaData.l10n?.sourceCommit ?? 'no source commit yet',
-                    text.replace(match[0], '').trim()
-                );
-            }
-            const response = await octokit.request('GET /repos/{owner}/{repo}/commits', {
-                owner: owner,
-                repo: repo,
-                path: `files/${locale}/${path}/index.md`,
+        try {
+            const octokit = new Octokit({
+                auth: accessToken,
+            });
+            const endpoint = `GET /repos/${owner}/${repo}/contents/files/${locale}/${path}/index.md`;
+            const response = await octokit.request(endpoint, {
+                ref: branch,
                 headers: {
                     'X-GitHub-Api-Version': '2022-11-28',
                 },
             });
-            if (response.status === 200 && response.data.length > 0) {
-                return new Entry(
-                    metaData.title,
-                    metaData.slug,
-                    response.data[0].sha,
-                    text.replace(match[0], '').trim()
-                );
+
+            const text = b64DecodeUnicode(response.data.content);
+
+            const match = text.match(/^---([\s\S]+?)---/);
+            if (match) {
+                let metaData: any = yaml.load(match[1]);
+                if (!metaData.title || !metaData.slug) {
+                    throw new Error('Invalid metadata found in the file');
+                }
+
+                if (locale !== 'en-us') {
+                    return new Entry(
+                        metaData.title,
+                        metaData.shorTitle,
+                        metaData.slug,
+                        metaData.l10n?.sourceCommit ?? 'no source commit yet',
+                        text.replace(match[0], '').trim()
+                    );
+                }
+                const response = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+                    owner: owner,
+                    repo: repo,
+                    path: `files/${locale}/${path}/index.md`,
+                    headers: {
+                        'X-GitHub-Api-Version': '2022-11-28',
+                    },
+                });
+                if (response.status === 200 && response.data.length > 0) {
+                    return new Entry(
+                        metaData.title,
+                        metaData.shorTitle,
+                        metaData.slug,
+                        response.data[0].sha,
+                        text.replace(match[0], '').trim()
+                    );
+                } else {
+                    throw new Error('No commits found in the repository');
+                }
             } else {
-                throw new Error('No commits found in the repository');
+                throw new Error('No metadata found in the file');
             }
-        } else {
-            throw new Error('No metadata found in the file');
+        } catch (error: any) {
+            handleGitHubError(error);
         }
     }
 }

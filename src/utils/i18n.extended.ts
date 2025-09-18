@@ -2,15 +2,129 @@
  *
  *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
  *  *
- *  * Open sourced under GNU General Public License 3.0.
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
  *  *
- *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *  * Open sourced under GNU General Public License 3.0.
  *
  */
 
 // This file is auto-generated. Do not edit manually.
 import { Locale } from './i18n.base';
-export type LocaledKeys = 'appName'|'prFiles'|'compare'|'homeTitle'|'homeHelperTitle'|'homeIntro'|'homeToken1'|'homeTokenHere'|'homeToken2'|'homeCompare1'|'homeCompare2'|'homeCompare3'|'homePR1'|'homePR2'|'homeCopyright'|'ownerLabel'|'branchLabel'|'pathLabel'|'localeLabel'|'eg'|'fetch'|'saveChanges'|'toLocalStorage'|'readChanges'|'fromLocalStorage'|'settings'|'cancel'|'save'|'settingsTitle'|'splitMethod'|'splitOptionDouble'|'splitOptionSingle'|'enableMarkdownListProcessing'|'enableMarkdownBQProcessing'|'msgPathLocaleRequired'|'msgEntriesFetched'|'msgNoEntriesToSave'|'msgEntriesSavedToLocalStorage'|'msgNoEntriesFoundInLocalStorage'|'msgEntriesReadFromLocalStorage'|'diffEntriesUnavailable'|'localized'|'source'|'metadata'|'titleLabel'|'slugLabel'|'sourceCommitLabel'|'currentCommitLabel'|'linkToFileLabel'|'clickHere'|'entryNotLocalizedYet'|'prId'|'msgPRFetchedSuccess'|'msgPRIdRequired'|'preferences'|'prefWarning1'|'prefWarning2'|'prefWarning3'|'themeSettings'|'followSystemTheme'|'followSystemThemeDesc'|'backgroundImage'|'backgroundImageDesc'|'theme'|'accessTokenLabel'|'accessTokenDesc'|'languageLabel'|'languageDesc'|'menu';
+
+export type LocaledKeys =
+    | 'appName'
+    | 'prFiles'
+    | 'compare'
+    | 'homeTitle'
+    | 'homeHelperTitle'
+    | 'homeIntro'
+    | 'homeToken1'
+    | 'homeTokenHere'
+    | 'homeToken2'
+    | 'homeCompare1'
+    | 'homeCompare2'
+    | 'homeCompare3'
+    | 'homePR1'
+    | 'homePR2'
+    | 'homeCopyright'
+    | 'ownerLabel'
+    | 'branchLabel'
+    | 'pathLabel'
+    | 'localeLabel'
+    | 'eg'
+    | 'fetch'
+    | 'saveChanges'
+    | 'toLocalStorage'
+    | 'readChanges'
+    | 'fromLocalStorage'
+    | 'settings'
+    | 'cancel'
+    | 'save'
+    | 'settingsTitle'
+    | 'splitMethod'
+    | 'splitOptionDouble'
+    | 'splitOptionSingle'
+    | 'enableMarkdownListProcessing'
+    | 'enableMarkdownBQProcessing'
+    | 'msgPathLocaleRequired'
+    | 'msgEntriesFetched'
+    | 'msgNoEntriesToSave'
+    | 'msgEntriesSavedToLocalStorage'
+    | 'msgNoEntriesFoundInLocalStorage'
+    | 'msgEntriesReadFromLocalStorage'
+    | 'diffEntriesUnavailable'
+    | 'localized'
+    | 'source'
+    | 'metadata'
+    | 'titleLabel'
+    | 'shortTitleLabel'
+    | 'slugLabel'
+    | 'sourceCommitLabel'
+    | 'currentCommitLabel'
+    | 'linkToFileLabel'
+    | 'clickHere'
+    | 'entryNotLocalizedYet'
+    | 'prId'
+    | 'msgPRFetchedSuccess'
+    | 'msgPRIdRequired'
+    | 'msgGitHubRateLimit'
+    | 'msgGitHubForbidden'
+    | 'msgGitHubNotFound'
+    | 'msgGitHubUnknownError'
+    | 'authorLabel'
+    | 'labelsLabel'
+    | 'sortLabel'
+    | 'orderLabel'
+    | 'anyLabel'
+    | 'loadingLabels'
+    | 'orCommaSeparated'
+    | 'clearLabel'
+    | 'searchOpenPRs'
+    | 'showingPRs'
+    | 'noPRsFound'
+    | 'reviewLabel'
+    | 'loadFilesLabel'
+    | 'filesInPR'
+    | 'fetchByPRId'
+    | 'updatedLabel'
+    | 'createdLabel'
+    | 'descLabel'
+    | 'ascLabel'
+    | 'byAuthor'
+    | 'updatedAt'
+    | 'reviewPendingChanges'
+    | 'localeLabel2'
+    | 'prIdLabel'
+    | 'refreshLabel'
+    | 'hideListLabel'
+    | 'showListLabel'
+    | 'modeLabel'
+    | 'githubPRMode'
+    | 'localBackendMode'
+    | 'backendLabel'
+    | 'noChangesLabel'
+    | 'noFilesForLocale'
+    | 'selectFileToViewDiff'
+    | 'loadingDiff'
+    | 'sourceSize'
+    | 'translationSize'
+    | 'sourceExists'
+    | 'translationExists'
+    | 'preferences'
+    | 'prefWarning1'
+    | 'prefWarning2'
+    | 'prefWarning3'
+    | 'themeSettings'
+    | 'followSystemTheme'
+    | 'followSystemThemeDesc'
+    | 'backgroundImage'
+    | 'backgroundImageDesc'
+    | 'theme'
+    | 'accessTokenLabel'
+    | 'accessTokenDesc'
+    | 'languageLabel'
+    | 'languageDesc'
+    | 'menu';
 export const I18NDict = {
     'zh-CN': {
         appName: 'MDN 本地化助手',
@@ -58,6 +172,7 @@ export const I18NDict = {
         source: '源文档',
         metadata: '元数据',
         titleLabel: '标题',
+        shortTitleLabel: '短标题',
         slugLabel: '短链接',
         sourceCommitLabel: '源提交',
         currentCommitLabel: '当前提交',
@@ -67,10 +182,54 @@ export const I18NDict = {
         prId: 'PR 编号',
         msgPRFetchedSuccess: 'PR 获取成功',
         msgPRIdRequired: '需要提供 PR 编号',
+        msgGitHubRateLimit: 'GitHub API 请求次数已达上限，请稍后再试',
+        msgGitHubForbidden: 'GitHub API 访问被拒绝，请检查访问令牌权限',
+        msgGitHubNotFound: 'GitHub 资源未找到',
+        msgGitHubUnknownError: 'GitHub API 请求失败',
+        authorLabel: '作者',
+        labelsLabel: '标签',
+        sortLabel: '排序',
+        orderLabel: '顺序',
+        anyLabel: '任意',
+        loadingLabels: '正在加载标签…',
+        orCommaSeparated: '或用逗号分隔：',
+        clearLabel: '清除',
+        searchOpenPRs: '搜索开放的 PR',
+        showingPRs: '显示 {count} 个 PR',
+        noPRsFound: '未找到 PR。请尝试调整筛选条件。',
+        reviewLabel: '审核',
+        loadFilesLabel: '加载文件',
+        filesInPR: 'PR #{prId} 中的文件',
+        fetchByPRId: '按 PR 编号获取',
+        updatedLabel: '已更新',
+        createdLabel: '已创建',
+        descLabel: '降序',
+        ascLabel: '升序',
+        byAuthor: '由 {author}',
+        updatedAt: '更新于 {date}',
+        reviewPendingChanges: '审核待处理的更改',
+        localeLabel2: '语言区域',
+        prIdLabel: 'PR 编号',
+        refreshLabel: '刷新',
+        hideListLabel: '隐藏列表',
+        showListLabel: '显示列表',
+        modeLabel: '模式',
+        githubPRMode: 'GitHub PR',
+        localBackendMode: '本地后端',
+        backendLabel: '后端',
+        noChangesLabel: '没有更改。',
+        noFilesForLocale: '此语言区域没有文件。',
+        selectFileToViewDiff: '从列表中选择文件以查看差异。',
+        loadingDiff: '正在加载差异...',
+        sourceSize: '源文件大小：{size} 字符',
+        translationSize: '翻译大小：{size} 字符',
+        sourceExists: '源文件存在',
+        translationExists: '翻译存在',
         preferences: '偏好设置',
-        prefWarning1: '这些偏好设置将以未加密的形式保存在你的浏览器本地存储中。请务必只在你信任的设备上使用本应用，否则可能导致这些偏好设置甚至账号数据泄露。',
+        prefWarning1:
+            '这些偏好设置将以未加密的形式保存在你的浏览器本地存储中。请务必只在你信任的设备上使用本应用，否则可能导致这些偏好设置甚至账号数据泄露。',
         prefWarning2: '某些偏好设置可能需要刷新页面后才能生效。',
-        prefWarning3: '清除浏览器缓存或站点存储的数据将会丢失这些偏好设置。',
+        prefWarning3: '清除浏览器��存或站点存储的数据将会丢失这些偏好设置。',
         themeSettings: '主题设置',
         followSystemTheme: '跟随系统主题',
         followSystemThemeDesc: '根据系统偏好自动在浅色与深色主题之间切换',
@@ -81,7 +240,7 @@ export const I18NDict = {
         accessTokenDesc: '用于访问 GitHub API 的访问令牌。',
         languageLabel: '语言',
         languageDesc: '应用所使用的语言。',
-        menu: '菜单'
+        menu: '菜单',
     },
     'en-US': {
         appName: 'MDN L10N Helper',
@@ -89,13 +248,15 @@ export const I18NDict = {
         compare: 'Compare',
         homeTitle: 'Home Page',
         homeHelperTitle: 'Helper of MDN Web Docs Localization',
-        homeIntro: 'This is a helper tool for translating MDN Web Docs to boost the process of reviewing by checking the difference between the translation and the current source.',
-        homeToken1: 'Before using the tool, a GitHub access token may be generated and the token itself must have the repository you want to access read permission. You need to set it',
+        homeIntro:
+            'This is a helper tool for translating MDN Web Docs to boost the process of reviewing by checking the difference between the translation and the current source.',
+        homeToken1:
+            'Before using the tool, a GitHub access token may be generated and the token itself must have the repository you want to access read permission. You need to set it',
         homeTokenHere: 'Here',
         homeToken2: '. Without Access Token, your access to the GitHub Rest API may not be guaranteed.',
         homeCompare1: 'Then you may navigate to',
         homeCompare2: 'page to compare and see the difference line by line between some documentation and',
-        homeCompare3: '\'s latest one!',
+        homeCompare3: "'s latest one!",
         homePR1: 'You may also navigate to',
         homePR2: 'page to quickly obtain the URLs of all files under a certain PR of the compare page.',
         homeCopyright: 'Copyright © Hoarfroster and other collaborators 2025, all rights reserved.',
@@ -129,6 +290,7 @@ export const I18NDict = {
         source: 'Source',
         metadata: 'Metadata',
         titleLabel: 'Title',
+        shortTitleLabel: 'Short Title',
         slugLabel: 'Slug',
         sourceCommitLabel: 'Source Commit',
         currentCommitLabel: 'Current Commit',
@@ -138,10 +300,55 @@ export const I18NDict = {
         prId: 'PR ID',
         msgPRFetchedSuccess: 'PR fetched successfully',
         msgPRIdRequired: 'PR ID is required',
+        msgGitHubRateLimit: 'GitHub API rate limit exceeded. Please try again later',
+        msgGitHubForbidden: 'GitHub API access forbidden. Please check your access token permissions',
+        msgGitHubNotFound: 'GitHub resource not found',
+        msgGitHubUnknownError: 'GitHub API request failed',
+        authorLabel: 'Author',
+        labelsLabel: 'Labels',
+        sortLabel: 'Sort',
+        orderLabel: 'Order',
+        anyLabel: 'Any',
+        loadingLabels: 'Loading labels…',
+        orCommaSeparated: 'or comma-separated:',
+        clearLabel: 'Clear',
+        searchOpenPRs: 'Search Open PRs',
+        showingPRs: 'Showing {count} PRs',
+        noPRsFound: 'No PRs found. Try adjusting filters.',
+        reviewLabel: 'Review',
+        loadFilesLabel: 'Load Files',
+        filesInPR: 'Files in PR #{prId}',
+        fetchByPRId: 'Fetch By PR ID',
+        updatedLabel: 'Updated',
+        createdLabel: 'Created',
+        descLabel: 'Desc',
+        ascLabel: 'Asc',
+        byAuthor: 'by {author}',
+        updatedAt: 'updated {date}',
+        reviewPendingChanges: 'Review Pending Changes',
+        localeLabel2: 'Locale',
+        prIdLabel: 'PR ID',
+        refreshLabel: 'Refresh',
+        hideListLabel: 'Hide List',
+        showListLabel: 'Show List',
+        modeLabel: 'Mode',
+        githubPRMode: 'GitHub PR',
+        localBackendMode: 'Local Backend',
+        backendLabel: 'Backend',
+        noChangesLabel: 'No changes.',
+        noFilesForLocale: 'No files for this locale.',
+        selectFileToViewDiff: 'Select a file from the list to view diff.',
+        loadingDiff: 'Loading diff...',
+        sourceSize: 'Source size: {size} chars',
+        translationSize: 'Translation size: {size} chars',
+        sourceExists: 'source exists',
+        translationExists: 'translation exists',
         preferences: 'Preferences',
-        prefWarning1: 'These preferences will only be saved to your browser\'s local storage without encryption. Be always sure to use the application only on device you trusted, otherwise leak of these preferences or even account data may occur.',
+        prefWarning1:
+            "These preferences will only be saved to your browser's local storage without encryption. Be always sure to use the application only on device you trusted, otherwise leak of these preferences or even account data may occur.",
         prefWarning2: 'Certain preferences may require a page refresh to take effect.',
-        prefWarning3: 'By clearing browser cache or delete site\'s stored data, you will lose these preferences forever.',
+        prefWarning3:
+            "By clearing browser cache or delete site's stored data, you will lose these preferences forever.",
         themeSettings: 'Theme Settings',
         followSystemTheme: 'Follow System Theme',
         followSystemThemeDesc: 'Automatically switch between light and dark themes based on your system preference',
@@ -152,6 +359,6 @@ export const I18NDict = {
         accessTokenDesc: 'Access Token generated from GitHub for API access.',
         languageLabel: 'Language',
         languageDesc: 'Language to use for the application.',
-        menu: 'Menu'
-    }
+        menu: 'Menu',
+    },
 } as Record<Locale, Record<LocaledKeys, string>>;

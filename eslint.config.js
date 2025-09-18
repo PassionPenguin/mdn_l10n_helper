@@ -2,18 +2,17 @@
  *
  *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
  *  *
- *  * Open sourced under GNU General Public License 3.0.
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
  *  *
- *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *  * Open sourced under GNU General Public License 3.0.
  *
  */
 
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import * as reactDom from "typescript-eslint";
-import * as reactX from "typescript-eslint";
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint, * as reactDom from 'typescript-eslint';
+import * as reactX from 'typescript-eslint';
 
 export default tseslint.config(
     {ignores: ['dist']},

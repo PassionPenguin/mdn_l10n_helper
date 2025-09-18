@@ -2,9 +2,9 @@
  *
  *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
  *  *
- *  * Open sourced under GNU General Public License 3.0.
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
  *  *
- *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *  * Open sourced under GNU General Public License 3.0.
  *
  */
 
@@ -79,21 +79,55 @@ export default function ComparePage() {
             setLoading(false);
             return;
         }
+
+        let l10nEntry: Entry | null = null;
+        let sourceEntryResult: Entry | null = null;
+        let errors: string[] = [];
+
         try {
-            setL10nedEntry(
-                await Entry.fromGitHub(
+            // Try to fetch localized entry
+            try {
+                l10nEntry = await Entry.fromGitHub(
                     l10nOwner,
                     'translated-content',
                     l10nBranch,
                     filePath,
                     fileLocale,
                     preferences.accessToken
-                )
-            );
-            setSourceEntry(
-                await Entry.fromGitHub('mdn', 'content', 'main', filePath, 'en-us', preferences.accessToken)
-            );
-            setMessage({ message: I18N.msgEntriesFetched, type: 'success' });
+                );
+            } catch (e: any) {
+                errors.push(`Localized file not found: ${e.message}`);
+                // Create empty entry for missing localized file
+                l10nEntry = new Entry('File not existed', '', filePath, '', '');
+            }
+
+            // Try to fetch source entry
+            try {
+                sourceEntryResult = await Entry.fromGitHub(
+                    'mdn',
+                    'content',
+                    'main',
+                    filePath,
+                    'en-us',
+                    preferences.accessToken
+                );
+            } catch (e: any) {
+                errors.push(`Source file not found: ${e.message}`);
+                // Create empty entry for missing source file
+                sourceEntryResult = new Entry('File not existed', '', filePath, '', '');
+            }
+
+            setL10nedEntry(l10nEntry);
+            setSourceEntry(sourceEntryResult);
+
+            if (errors.length > 0) {
+                setMessage({
+                    message: `Some files not found: ${errors.join(', ')}`,
+                    type: 'error',
+                });
+            } else {
+                setMessage({ message: I18N.msgEntriesFetched, type: 'success' });
+            }
         } catch (e: any) {
             setMessage({ message: e.message, type: 'error' });
         }

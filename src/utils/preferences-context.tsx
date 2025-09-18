@@ -2,13 +2,13 @@
  *
  *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
  *  *
- *  * Open sourced under GNU General Public License 3.0.
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
  *  *
- *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *  * Open sourced under GNU General Public License 3.0.
  *
  */
 
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
 // Define the type for your preferences
 interface Preferences {
@@ -39,7 +39,12 @@ export const PreferencesProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const savedPreferences = localStorage.getItem('user-preferences');
         if (savedPreferences) {
-            setPreferences(JSON.parse(savedPreferences));
+            try {
+                const parsed = JSON.parse(savedPreferences);
+                setPreferences({ ...defaultPreferences, ...parsed });
+            } catch {
+                setPreferences(defaultPreferences);
+            }
         }
     }, []);
 

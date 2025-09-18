@@ -1,3 +1,13 @@
+/*
+ *
+ *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
+ *  *
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
+ *  *
+ *  * Open sourced under GNU General Public License 3.0.
+ *
+ */
+
 export interface ChangeEntry { path: string; status: string; source_exists: boolean; translation_exists: boolean }
 export interface ChangesResponse { changes: ChangeEntry[]; locale: string; base_ref: string }
 

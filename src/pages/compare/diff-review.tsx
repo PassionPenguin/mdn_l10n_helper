@@ -2,9 +2,9 @@
  *
  *  * Copyright (c) [mdn_l10n_helper] 2025. All Rights Reserved.
  *  *
- *  * Open sourced under GNU General Public License 3.0.
+ *  * Last Modified on Sep 18, 2025 by hoarfroster
  *  *
- *  * Last Modified on Aug 19, 2025 by hoarfroster
+ *  * Open sourced under GNU General Public License 3.0.
  *
  */
 
@@ -114,6 +114,9 @@ function L10nedEntryProperties({ entry }: { entry: Entry | null | undefined }) {
                         <b>{I18N.titleLabel}</b>: <code>{entry?.title}</code>
                     </li>
                     <li>
+                        <b>{I18N.shortTitleLabel}</b>: <code>{entry?.shortTitle}</code>
+                    </li>
+                    <li>
                         <b>{I18N.slugLabel}</b>: <code>{entry?.slug}</code>
                     </li>
                     <li>
@@ -138,6 +141,9 @@ function SourceEntryProperties({ entry, path }: { entry: Entry | null | undefine
                 <ul>
                     <li>
                         <b>{I18N.titleLabel}</b>: <code>{entry?.title}</code>
+                    </li>
+                    <li>
+                        <b>{I18N.shortTitleLabel}</b>: <code>{entry?.shortTitle}</code>
                     </li>
                     <li>
                         <b>{I18N.slugLabel}</b>: <code>{entry?.slug}</code>
